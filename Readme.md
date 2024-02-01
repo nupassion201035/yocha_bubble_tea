@@ -21,3 +21,12 @@ git push -u origin main <br>
 
 
 https: https://github.com/nupassion201035/yocha_bubble_tea.git <br>
+
+## Structure project 
+
+/assets : any css,js,img file <br>
+/employee  : any page in role employee <br>
+connection.php : file connect to dedicate database  <br>
+index.php : fist page viewers can see in our project <br>
+login_p.php : get data from index page and check user with database and response <br>
+navbar.php : function navbar for viewers easy for reuse <br>
