@@ -6,28 +6,22 @@
     <title>Login Page</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Your Logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+<nav class="navbar navbar-expand navbar-light bg-faded">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                Yocha Bubble Tea
+            </a>
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#home">Home</a>
+                    <a class="nav-link" aria-current="page" href="#">หน้าสั่งซื้อ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link" href="#">คิว</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#services">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Logout</a>
+                    <a class="nav-link" href="#">สรุปยอดขาย</a>
                 </li>
             </ul>
         </div>
-    </div>
-</nav>
+    </nav>
