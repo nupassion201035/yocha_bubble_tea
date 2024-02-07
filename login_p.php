@@ -17,13 +17,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // For simplicity, let's check if the username is "demo" and password is "password"
         $row = $result->fetch_assoc();
-        if ($row['status'] == "dev" or $row['status'] == "employee") {
+        if ( $row['status'] == "employee") {
             // Redirect to a success page or perform other actions
             $_SESSION['username'] = $username;
+            $_SESSION['status'] = $row['status'];
             echo "Successfully logged";
             header("Location: employee/home.php");
             exit();
-        } 
+        }  elseif ($row['status'] == "owner") {
+            // Redirect to a success page or perform other actions
+            $_SESSION['username'] = $username;
+            $_SESSION['status'] = $row['status'];
+            echo "Successfully logged";
+            header("Location: owner/home.php");
+            exit();
+        }
         else {
             // Display an error message
             $error_message = "Invalid username or password.";

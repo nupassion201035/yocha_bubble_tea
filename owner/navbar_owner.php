@@ -1,3 +1,9 @@
+<?php
+session_start();
+if ($_SESSION['status'] != "owner"){
+    header("Location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +27,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">สรุปยอดขาย</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Logout</a>
                 </li>
             </ul>
         </div>
