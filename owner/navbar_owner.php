@@ -26,6 +26,12 @@ if ($_SESSION['status'] != "owner"){
                     <a class="nav-link" href="#">คิว</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="manage_employee.php">จัดการพนักงาน</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="manage_product.php">จัดการสินค้า</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">สรุปยอดขาย</a>
                 </li>
                 <li class="nav-item">
