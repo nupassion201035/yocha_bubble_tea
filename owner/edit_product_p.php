@@ -64,13 +64,12 @@ if ($uploadOk == 0) {
 }
 
 $name = $_POST["name"];
-$price = $_POST["price"];
 $type = $_POST["type"];
 $img_name = basename($_FILES["fileToUpload"]["name"]);
 
 include ("../connection.php");
-$stmt = $conn->prepare("UPDATE product SET name=?, price=?, type=?, image=? WHERE pro_id=?");
-$stmt->bind_param("sdssi", $name, $price, $type, $img_name, $id);
+$stmt = $conn->prepare("UPDATE product SET name=? type=?, image=? WHERE pro_id=?");
+$stmt->bind_param("sssi", $name, $type, $img_name, $id);
 
 $stmt->execute();
 

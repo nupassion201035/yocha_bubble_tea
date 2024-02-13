@@ -21,7 +21,7 @@ if ($_SESSION['status'] != "owner"){
             </a>
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">หน้าสั่งซื้อ</a>
+                    <a class="nav-link" aria-current="page" href="home.php">หน้าสั่งซื้อ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">คิว</a>
@@ -31,6 +31,12 @@ if ($_SESSION['status'] != "owner"){
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="manage_product.php">จัดการสินค้า</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="promotion.php">โปรโมชั่น</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="manage_member.php">จัดการสมาชิก</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">สรุปยอดขาย</a>

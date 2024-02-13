@@ -50,13 +50,13 @@ if ($uploadOk == 0) {
 }
 
 $name = $_POST["name"];
-$price = $_POST["price"];
+
 $type = $_POST["type"];
 $img_name = basename($_FILES["fileToUpload"]["name"]);
 
 include ("../connection.php");
-$stmt = $conn->prepare("INSERT INTO product (name, price, type, image) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssss", $name, $price, $type, $img_name);
+$stmt = $conn->prepare("INSERT INTO product (name, type, image) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $name, $type, $img_name);
 
 $stmt->execute();
 

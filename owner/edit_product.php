@@ -19,10 +19,7 @@ $row = $result->fetch_assoc()
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name" value="<?php echo $row["name"] ?>">
       </div>
-      <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" name="price" value="<?php echo $row["price"] ?>">
-      </div>
+      
       <div class="mb-3">
         <label for="type" class="form-label">type</label>
         <select class="form-select" id="type" name="type" required>

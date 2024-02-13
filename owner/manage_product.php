@@ -1,6 +1,6 @@
 <script>
     function confirmDelete() {
-      return confirm("Are you sure you want to delete this employee?");
+      return confirm("Are you sure you want to delete this?");
     }
   </script>
 <?php 
@@ -24,10 +24,10 @@ if ($result->num_rows > 0) {
     
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>Name</th><th>Price</th><th>Type</th><th>Image</th><th>Action</th></tr></thead>";
+    echo "<thead><tr><th>Name</th><th>Type</th><th>Image</th><th>Action</th></tr></thead>";
     echo "<tbody>";
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["name"]."</td><td>".$row["price"]."</td><td>".$row["type"]."</td><td>".$row["image"]."</td> 
+        echo "<tr><td>".$row["name"]."</td><td>".$row["type"]."</td><td>".$row["image"]."</td> 
         <td>
         <a href='edit_product.php?id=".$row["pro_id"]."'><button type='button'  class='btn btn-success btn-lg'>Edit</button></a>
         &nbsp;&nbsp;&nbsp; 

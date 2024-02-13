@@ -4,14 +4,11 @@
 
 
 include("navbar_owner.php");
-$products = [
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-];
+include ("../connection.php");
+
+
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
 
 ?>
 <html lang="en">
@@ -29,11 +26,11 @@ $products = [
     <div class="container-fluid">
         <div class="row">
             <div class="container-order-list col-md-8">
-                <?php foreach ($products as $product) {
+                <?php while ($row = $result->fetch_assoc()) {
                     echo '<div class="card" style="width: 200px;">';
-                    echo '    <img src="' . $product['image'] . '" class="card-img-top" alt="...">';
+                    echo '    <img src="../assets/img/product/'. $row['image'] .'" class="card-img-top" alt="...">';
                     echo '    <div class="card-body">';
-                    echo '        <p class="card-text">' . $product['name'] . '</p>';
+                    echo '        <p class="card-text">' . $row['name'] . '</p>';
                     echo '        <a href="#" class="btn btn-primary">สั่งซื้อ</a>';
                     echo '    </div>';
                     echo '</div>';
