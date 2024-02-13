@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2024 at 11:01 AM
+-- Generation Time: Feb 13, 2024 at 09:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,9 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employee_id`, `username`, `password`, `name`, `address`, `telephone`, `line_id`, `code_employee`, `status`) VALUES
-(1, 'dev_game', '12345678', 'whoyouknow', 'ชานชราที่ 5 3/4 ต.วอชิงตัน อ.จีน จ.โลก 11121', '0800000000', 'whoyouknow', '0', 'dev');
+(1, 'employee', '12345678', 'whoyouknow', 'ชานชราที่ 5 3/4 ต.วอชิงตัน อ.จีน จ.โลก 11121', '0800000000', 'whoyouknow', '0', 'employee'),
+(2, 'owner', '12345678', 'owner', 'owner', '0900000000', 'dsadasd', '2', 'owner'),
+(4, 'ttt', 'dsad', 'dasd2', 'dasdasd', '23423', 'fsadasd', 'sdfsf', 'employee');
 
 -- --------------------------------------------------------
 
@@ -98,6 +100,13 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`pro_id`, `name`, `price`, `type`, `image`) VALUES
+(9, 'kritsada', '43', 'drink', 'นมชมพู.jpg');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -133,7 +142,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `list_order`
@@ -151,7 +160,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
