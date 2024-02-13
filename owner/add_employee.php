@@ -6,7 +6,7 @@ include("navbar_owner.php");
 ?>
 <div class="container">
     <h1>Add Employee</h1>
-    <form action="add_employee_p.php" method="post">
+    <form action="add_employee_p.php" method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input type="text" class="form-control" id="username" name="username" required>

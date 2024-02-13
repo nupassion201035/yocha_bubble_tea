@@ -1,4 +1,9 @@
-<?php include("navbar_em.php");
+
+<?php 
+
+
+
+include("navbar_em.php");
 $products = [
     ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
     ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
