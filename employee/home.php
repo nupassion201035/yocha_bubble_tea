@@ -1,12 +1,24 @@
 <?php include("navbar_em.php");
 $products = [
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
-    ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
+    ['id' => '1','name' => 'กาแฟเย็น', 'image' => '../src\กาแฟเย็น.jpg'],
+    ['id' => '2','name' => 'โกโก้', 'image' => '../src\โกโก้.jpg'],
+    ['id' => '3','name' => 'ชาเขียวนม', 'image' => '../src\ชาเขียวนม.jpg'],
+    ['id' => '4','name' => 'ชาเขียวมะลิ', 'image' => '../src\ชาเขียวมะลิ.jpg'],
+    ['id' => '5','name' => 'ชาไทย', 'image' => '../src\ชาไทย.jpg'],
+    ['id' => '6','name' => 'ชานมไต้หวัน', 'image' => '../src/ชานมไต้หวัน.jpg'],
+    ['id' => '7','name' => 'นมชมพู', 'image' => '../src/นมชมพู.jpg'],
+    ['id' => '8','name' => 'นมสด', 'image' => '../src/นมสด.jpg'],
+    ['id' => '9','name' => 'โอวัลติน', 'image' => '../src/โอวัลติน.jpg'],
 ];
+
+$cart =[
+    ['id' => '1','name' => 'ชานมไข่มุก', 'quantity' => 1, 'price' => 30],
+    ['id' => '1','name' => 'ชานมไข่มุก', 'quantity' => 1, 'price' => 30]
+
+];
+
+
+
 
 ?>
 <html lang="en">
@@ -29,14 +41,14 @@ $products = [
                     echo '    <img src="' . $product['image'] . '" class="card-img-top" alt="...">';
                     echo '    <div class="card-body">';
                     echo '        <p class="card-text">' . $product['name'] . '</p>';
-                    echo '        <a href="#" class="btn btn-primary">สั่งซื้อ</a>';
+                    echo '        <a href="#" class="btn btn-primary order-btn">สั่งซื้อ</a>';
                     echo '    </div>';
                     echo '</div>';
                 } ?>
             </div>
             <div class="container-order col-md-4">
                 <h4>รายการสั่งซื้อ</h4>
-                <div class="row">
+                <div class="row" >
                     <div class="col">
                         รายการ
                     </div>
@@ -47,12 +59,25 @@ $products = [
                         ราคา
                     </div>
                 </div>
+                <?php foreach ($cart as $product) {
+                    echo '<div class="row" >';
+                    echo '    <div class="col">';
+                    echo $product['name'];
+                    echo '    </div>';
+                    echo '    <div class="col">';
+                    echo $product['quantity'];
+                    echo '    </div>';
+                    echo '    <div class="col">';
+                    echo $product['price'];
+                    echo '    </div>';
+                    echo '</div>';
+                } ?>
                 <button type="button" class="btn btn-dark">สั่งซื้อ</button>
             </div>
 
         </div>
     </div>
 </body>
-
-
+<script>
+</script>
 </html>

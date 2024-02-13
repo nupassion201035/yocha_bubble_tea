@@ -16,15 +16,15 @@ if ($_SESSION['status'] != "employee"){
 <nav class="navbar navbar-expand navbar-light bg-faded">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="src/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="../src/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
                 Yocha Bubble Tea
             </a>
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">หน้าสั่งซื้อ</a>
+                    <a class="nav-link" aria-current="page" href="home.php">หน้าสั่งซื้อ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">คิว</a>
+                    <a class="nav-link" href="queue.php">คิว</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">สรุปยอดขาย</a>

@@ -1,8 +1,5 @@
 
 <?php 
-
-
-
 include("navbar_owner.php");
 $products = [
     ['name' => 'ชานมไข่มุก', 'image' => 'src\tea.jpg'],
