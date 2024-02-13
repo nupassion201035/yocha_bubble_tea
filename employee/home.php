@@ -1,4 +1,9 @@
-<?php include("navbar_em.php");
+
+<?php 
+
+
+
+include("navbar_em.php");
 $products = [
     ['id' => '1','name' => 'กาแฟเย็น', 'image' => '../src\กาแฟเย็น.jpg'],
     ['id' => '2','name' => 'โกโก้', 'image' => '../src\โกโก้.jpg'],
