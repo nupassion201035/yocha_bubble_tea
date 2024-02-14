@@ -156,12 +156,12 @@ $result2 = $conn->query($sql2);
                         if($count % 3 == 0 && $count != 0) {
                             echo '</div><div class="row">';
                         }
-                        echo '<div class="col-md-4" id="card_item">';
+                        echo '<div class="col-md-4" id="' .$row['pro_id']. '" onclick="showProId(' . $row['pro_id'] . ')">';
                         echo '    <div class="card" style="width: 250px;" id="item_card">';
-                        echo '        <img src="../assets/img/product/' . $row['image'] . '" class="card-img-top" alt="...">';
+                        echo '        <img src="../assets/img/product/' . $row['image'] . '" class="card-img-top" alt=" '.$row['name']. ' ">';
                         echo '        <div class="card-body">';
                         echo '            <p class="card-text">' . $row['name'] . '</p>';
-                        echo '            <a href="#" onclick="document.getElementById(\'popup\').style.display=\'block\'" class="btn btn-primary">สั่งซื้อ</a>';
+                        echo '            <button type="button" class="btn btn-primary" onclick="document.getElementById(\'popup\').style.display=\'block\'">สั่งซื้อ</button>';
                         echo '        </div>';
                         echo '    </div>';
                         echo '</div>';
@@ -220,13 +220,6 @@ $result2 = $conn->query($sql2);
                 </div>
                 <label for="uname"><b>Toppings</b></label>
                 <div class="row">
-                    <!-- <div class="col-md-4 form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="check_toppings">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            <p>ไข่มุก</p>
-                            <img src="../assets\img\product\ไข่มุก.jpg" alt="img_product" class="img_product" style="width: 25%; align-items: flex-start;">
-                        </label>
-                    </div> -->
                     <?php while ($row = $result2->fetch_assoc()) {
                         echo '<div class="col-md-4 form-check">';
                         echo '    <input class="form-check-input" type="radio" value="'.$row['name'].'" id="flexCheckDefault" name="check_toppings">';
@@ -237,7 +230,7 @@ $result2 = $conn->query($sql2);
                         echo '</div>';
                     } ?> 
                 </div>
-
+                <input type="hidden" name="pro_id" value="" />
                 <button type="summit" class="btn btn-dark">สั่งซื้อ</button>
             </div>
         </form>
@@ -252,6 +245,11 @@ $result2 = $conn->query($sql2);
         if (event.target == popup) {
             popup.style.display = "none";
         }
+    }
+
+    function showProId(proId) {
+        let ProId_order = proId;
+        document.querySelector('input[name="pro_id"]').value = ProId_order;
     }
 </script>
 
