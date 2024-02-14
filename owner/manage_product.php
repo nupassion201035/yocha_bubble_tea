@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
     echo "<thead><tr><th>Name</th><th>Type</th><th>Image</th><th>Action</th></tr></thead>";
     echo "<tbody>";
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["name"]."</td><td>".$row["type"]."</td><td>".$row["image"]."</td> 
+        echo "<tr><td>".$row["name"]."</td><td>".$row["type"]."</td><td><img src='../assets/img/product/".$row["image"]."'width='50' height='50' ></td> 
         <td>
         <a href='edit_product.php?id=".$row["pro_id"]."'><button type='button'  class='btn btn-success btn-lg'>Edit</button></a>
         &nbsp;&nbsp;&nbsp; 

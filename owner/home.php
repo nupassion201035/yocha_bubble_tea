@@ -3,8 +3,11 @@ include("navbar_owner.php");
 include("../connection.php");
 
 
-$sql = "SELECT * FROM product";
+$sql = "SELECT * FROM product WHERE type = 'drink'";
 $result = $conn->query($sql);
+
+$sql2 = "SELECT * FROM product WHERE type = 'topping'";
+$result2 = $conn->query($sql2);
 
 ?>
 <html lang="en">
@@ -136,7 +139,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link id="theme" rel="stylesheet" href="home.css">
+    <link id="theme" rel="stylesheet" href="../assets/css/home.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -146,15 +149,26 @@ $result = $conn->query($sql);
     <div class="container-fluid">
         <div class="row">
             <div class="container-order-list col-md-8">
-                <?php while ($row = $result->fetch_assoc()) {
-                    echo '<div class="card" style="width: 200px;">';
-                    echo '    <img src="../assets/img/product/' . $row['image'] . '" class="card-img-top" alt="...">';
-                    echo '    <div class="card-body">';
-                    echo '        <p class="card-text">' . $row['name'] . '</p>';
-                    echo '        <a href="#" onclick="document.getElementById(\'popup\').style.display=\'block\'" class="btn btn-primary">สั่งซื้อ</a>';
-                    echo '    </div>';
-                    echo '</div>';
-                } ?>
+                <div class="row">
+                    <?php 
+                    $count = 0;
+                    while ($row = $result->fetch_assoc()) {
+                        if($count % 3 == 0 && $count != 0) {
+                            echo '</div><div class="row">';
+                        }
+                        echo '<div class="col-md-4" id="card_item">';
+                        echo '    <div class="card" style="width: 250px;" id="item_card">';
+                        echo '        <img src="../assets/img/product/' . $row['image'] . '" class="card-img-top" alt="...">';
+                        echo '        <div class="card-body">';
+                        echo '            <p class="card-text">' . $row['name'] . '</p>';
+                        echo '            <a href="#" onclick="document.getElementById(\'popup\').style.display=\'block\'" class="btn btn-primary">สั่งซื้อ</a>';
+                        echo '        </div>';
+                        echo '    </div>';
+                        echo '</div>';
+                        $count++;
+                    } 
+                    ?>
+                </div>
             </div>
             <div class="container-order col-md-4">
                 <h4>รายการสั่งซื้อ</h4>
@@ -175,15 +189,15 @@ $result = $conn->query($sql);
         </div>
     </div>
     <div id="popup" class="modal">
-
         <form class="modal-content animate" action="action_page.php" method="post">
             <div class="container_popup">
+                <h1>ลายระเอียดสั่งซื้อ</h1>
                 <label for="uname"><b>Size</b></label>
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Sizeselection" value="S" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input" type="radio" name="Sizeselection" value="S" id="flexCheckDefault" checked>
+                            <label class="form-check-label" for="flexCheckDefault" >
                                 <p>Size S 30 บาท</p>
                             </label>
                         </div>
@@ -206,27 +220,22 @@ $result = $conn->query($sql);
                 </div>
                 <label for="uname"><b>Toppings</b></label>
                 <div class="row">
-                    <div class="col-md-4 form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <!-- <div class="col-md-4 form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="check_toppings">
                         <label class="form-check-label" for="flexCheckDefault">
                             <p>ไข่มุก</p>
                             <img src="../assets\img\product\ไข่มุก.jpg" alt="img_product" class="img_product" style="width: 25%; align-items: flex-start;">
                         </label>
-                    </div>
-                    <div class="col-md-4 form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            <p>บุก</p>
-                            <img src="../assets\img\product\บุก.jpg" alt="img_product" class="img_product" style="width: 25%;">
-                        </label>
-                    </div>
-                    <div class="col-md-4 form-check">
-                        <input class="form-check-input" type="checkbox" value="fruity_jelly" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            <p>ฟรุตตี้สลัด</p>
-                            <img src="../assets\img\product\ฟรุตตี้สลัด.jpg" alt="img_product" class="img_product" style="width: 25%;">
-                        </label>
-                    </div>
+                    </div> -->
+                    <?php while ($row = $result2->fetch_assoc()) {
+                        echo '<div class="col-md-4 form-check">';
+                        echo '    <input class="form-check-input" type="radio" value="'.$row['name'].'" id="flexCheckDefault" name="check_toppings">';
+                        echo '    <label class="form-check-label" for="flexCheckDefault">';
+                        echo '        <p>' . $row['name'] . '</p>';
+                        echo '        <img src="../assets/img/product/' . $row['image'] . '" alt="img_product" class="img_product" style="width: 25%; align-items: flex-start;">';
+                        echo '    </label>';
+                        echo '</div>';
+                    } ?> 
                 </div>
 
                 <button type="summit" class="btn btn-dark">สั่งซื้อ</button>

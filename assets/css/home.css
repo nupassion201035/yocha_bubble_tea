@@ -1,0 +1,27 @@
+
+.container-order-list {
+    padding:  0px 10px;
+    border: 1px solid #00000018;
+}
+
+.container-order {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #00000018;
+    padding: 10px;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: #5c2626;
+    color: white;
+}
+
+#card_item{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 12px;
+}

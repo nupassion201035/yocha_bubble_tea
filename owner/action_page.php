@@ -1,5 +1,6 @@
 <?php 
 $size = $_POST['Sizeselection'];
-$Toppings = $_POST['Toppings'];
+$topoing = $_POST['check_toppings'];
 echo $size;
+echo $topoing;
 ?>
