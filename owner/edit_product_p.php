@@ -68,7 +68,7 @@ $type = $_POST["type"];
 $img_name = basename($_FILES["fileToUpload"]["name"]);
 
 include ("../connection.php");
-$stmt = $conn->prepare("UPDATE product SET name=? type=?, image=? WHERE pro_id=?");
+$stmt = $conn->prepare("UPDATE product SET name=?, type=?, image=? WHERE pro_id=?");
 $stmt->bind_param("sssi", $name, $type, $img_name, $id);
 
 $stmt->execute();
