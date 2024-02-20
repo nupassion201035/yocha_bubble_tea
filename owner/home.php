@@ -1,7 +1,7 @@
 <?php
+
 include("navbar_owner.php");
 include("../connection.php");
-
 
 $sql = "SELECT * FROM product WHERE type = 'drink'";
 $result = $conn->query($sql);
@@ -170,9 +170,9 @@ $result2 = $conn->query($sql2);
                     ?>
                 </div>
             </div>
-            <div class="container-order col-md-4">
+            <form  action="confirm_order.php" class="container-order col-md-4">
                 <h4>รายการสั่งซื้อ</h4>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col">
                         รายการ
                     </div>
@@ -182,9 +182,37 @@ $result2 = $conn->query($sql2);
                     <div class="col">
                         ราคา
                     </div>
+                    <div class="col"></div>
                 </div>
-                <button type="button" class="btn btn-dark">สั่งซื้อ</button>
-            </div>
+                <?php 
+                    if (!empty($_SESSION['cart'])) {
+                        foreach ($_SESSION['cart'] as $index => $order) {
+                            echo '<div class="row mb-2">';
+                            echo '  <div class="col">';
+                            echo        $order['drink']['name'] . ' ' . $order['size'];
+
+                            if (!empty($order['topping']['name'])) { // ดูว่าใส่ topping มั้ย
+                                echo '<div> + '. $order['topping']['name'] . '</div>';
+                            }
+
+                            echo '  </div>';
+                            echo '  <div class="col">';
+                            echo        '1';  
+                            echo '  </div>';
+                            echo '  <div class="col">';
+                            echo        $order['price'];    
+                            echo '  </div>';
+                            echo '  <div class="col">';
+                            echo        '<a class="btn btn-danger pt-1" href="remove_from_cart.php?cart_index=' . $index . '">X</a>';   
+                            echo '  </div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<div class="mb-2">ไม่มีสินค้า</div>';
+                    }
+                ?>
+                <button type="submit" class="btn btn-dark">สั่งซื้อ</button>
+            </form>
 
         </div>
     </div>
@@ -222,7 +250,7 @@ $result2 = $conn->query($sql2);
                 <div class="row">
                     <?php while ($row = $result2->fetch_assoc()) {
                         echo '<div class="col-md-4 form-check">';
-                        echo '    <input class="form-check-input" type="radio" value="'.$row['name'].'" id="flexCheckDefault" name="check_toppings">';
+                        echo '    <input class="form-check-input" type="radio" value="'.$row['pro_id'].'" id="flexCheckDefault" name="topping_id">';
                         echo '    <label class="form-check-label" for="flexCheckDefault">';
                         echo '        <p>' . $row['name'] . '</p>';
                         echo '        <img src="../assets/img/product/' . $row['image'] . '" alt="img_product" class="img_product" style="width: 25%; align-items: flex-start;">';
