@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $username;
         echo $password;
         // Here you can perform the login authentication, e.g., checking against a database
-        $sql ="SELECT username, password,status from employees where username = '$username' and password = '$password'";
+        $sql ="SELECT username, password,status,employee_id from employees where username = '$username' and password = '$password'";
         $query = $conn->prepare($sql);
         $query->execute();
         $result = $query->get_result();
@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirect to a success page or perform other actions
             $_SESSION['username'] = $username;
             $_SESSION['status'] = $row['status'];
+            $_SESSION['employee_id'] = $row['employee_id'];
             echo "Successfully logged";
             header("Location: employee/home.php");
             exit();
@@ -28,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirect to a success page or perform other actions
             $_SESSION['username'] = $username;
             $_SESSION['status'] = $row['status'];
+            $_SESSION['employee_id'] = $row['employee_id'];
             echo "Successfully logged";
             header("Location: owner/home.php");
             exit();

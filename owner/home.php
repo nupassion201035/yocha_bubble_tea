@@ -171,6 +171,7 @@ $result2 = $conn->query($sql2);
                 </div>
             </div>
             <form  action="confirm_order.php" class="container-order col-md-4">
+                <label class="col-md-4">สมาชิก</label>
                 <h4>รายการสั่งซื้อ</h4>
                 <div class="row mb-2">
                     <div class="col">
