@@ -39,7 +39,7 @@ $result2 = $conn->query($sql2);
     }
 
     .container_popup {
-        padding: 16px 350px;
+        padding: 16px 250px;
     }
 
     span.psw {
