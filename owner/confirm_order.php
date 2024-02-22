@@ -12,8 +12,8 @@ session_start();
 
 foreach ($_SESSION['cart'] as $index => $order) {
     echo "Size: " . $order['size'] . "<br>";
-    echo "Drink: ". $order['drink']['pro_id'].'/'.$order['drink']['name'].'/'.$order['drink']['price'].'/'.$order['drink']['type'].'/'.$order['drink']['price'].'/'.$order['drink']['image']."<br>";
-    echo "Topping: " . $order['topping']['pro_id'].'/'.$order['topping']['name'].'/'.$order['topping']['price'].'/'.$order['topping']['type'].'/'.$order['topping']['price'].'/'.$order['topping']['image']."<br>";
+    echo "Drink: ". $order['drink']['pro_id'].'/'.$order['drink']['name'].'/'.$order['drink']['type'].'/'.$order['drink']['image']."<br>";
+    echo "Topping: " . $order['topping']['pro_id'].'/'.$order['topping']['name'].'/'.$order['topping']['type'].'/'.$order['topping']['image']."<br>";
     echo "Price: " . $order['price'] . "<br><br>";
 };
 

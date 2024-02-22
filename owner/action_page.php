@@ -32,6 +32,6 @@ $order = array(
 
 $_SESSION['cart'][] = $order;
 
-header("Location: /yocha_bubble_tea/owner/home.php");
+header("Location: ./home.php");
 
 ?>
