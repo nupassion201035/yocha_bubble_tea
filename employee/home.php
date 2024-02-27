@@ -174,8 +174,9 @@ $result2 = $conn->query($sql2);
                 </div>
             </div>
             <form  action="confirm_order.php" class="container-order col-md-4">
-                <label class="form-label" for="men_id"> <h2>รหัสสมาชิก</h2></label>
-                <input type="text" class="form-control" name="mem_id">
+                <label class="form-label" for="men_id"> <h2>เบอร์โทรสมาชิก</h2></label>
+                <input type="text" class="form-control" id="searchInput" onkeyup="showResult(this.value)" name="mem_id" value="">
+                <div id="searchResult"></div>
                 <br>
                 <h4>รายการสั่งซื้อ</h4>
                 <div class="row mb-2">
@@ -269,10 +270,20 @@ $result2 = $conn->query($sql2);
             </div>
         </form>
     </div>
-                <?php echo $_SESSION['employee_id'] ; ?>
+                
 </body>
 
 <script>
+    function showResult(str) {
+            if (str.length == 0) {
+                document.getElementById("searchResult").innerHTML = "";
+                return;
+            } else {
+                $.get("auto_complete.php", { query: str }, function(data) {
+                    $("#searchResult").html(data);
+                });
+            }
+        }
     var popup = document.getElementById('popup');
 
 

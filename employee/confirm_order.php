@@ -10,9 +10,18 @@ include("../connection.php");
 //     'drink' => $drink, // row of prodcut
 //     'price' => $prices[$size] + $topping['price']
 // );
-if (isset($_POST['mem_id'])){
+if (isset($_GET['mem_id'])){
 
-$mem_id = $_POST['mem_id'];
+$telephone = $_GET['mem_id'];
+$sql8 = "SELECT * FROM `member` where `telephone` = '$telephone'";
+$query8 = $conn->prepare($sql8);
+$query8->execute();
+$result8 = $query8->get_result();
+
+        
+
+$row8 = $result8->fetch_assoc();
+$mem_id = $row8['member_id'];
 }else{
     $mem_id = '';
 }
@@ -43,8 +52,9 @@ $row['order_id'];
 
 
 // Close database connection
-
+$count = 0;
 foreach ($_SESSION['cart'] as $index => $order) {
+    $count++;
     echo "Size: " . $order['size'] . "<br>";
     echo "Drink: ". $order['drink']['pro_id'].'/'.$order['drink']['name'].'/'.$order['drink']['type'].'/'.$order['drink']['image']."<br>";
     echo "Topping: " . $order['topping']['pro_id'].'/'.$order['topping']['name'].'/'.$order['topping']['type'].'/'.$order['topping']['image']."<br>";
@@ -54,4 +64,27 @@ foreach ($_SESSION['cart'] as $index => $order) {
     $query->bind_param("issi", $order['drink']['pro_id'], $order['size'], $order['topping']['pro_id'],$row['order_id']);
     $query->execute();
 };
-header("Location: ./clear_cart.php");
+
+if(!empty($mem_id)){
+    $sql4 = "SELECT * FROM `member` where `member_id` = ?";
+    $query4 = $conn->prepare($sql4);
+$query4->bind_param("s", $mem_id);
+$query4->execute();
+$result4 = $query4->get_result();
+
+        
+        // For simplicity, let's check if the username is "demo" and password is "password"
+$row4 = $result4->fetch_assoc();
+
+ $sql5="UPDATE member SET `point` = ? where `member_id` = ?";
+ $new_point = $row4['point']+$count;
+ $query5 = $conn->prepare($sql5);
+ $query5->bind_param("ss", $new_point,$mem_id);
+ $query5->execute();
+ $result5 = $query5->get_result();
+
+
+
+}
+
+ header("Location: ./clear_cart.php");
