@@ -12,15 +12,20 @@ include("../connection.php");
 <body>
 <div class="container-xxl" >
         <div class="row" style="background-color: aqua;">
+        <a href="queue.php"><button class="btn btn-primary"> Back to Queue</button></a>
         <h1>คิว</h1>
             
 <?php
-$sql = "SELECT o.order_id, o.datetime, em.name as em_name, m.name as m_name
-FROM `order` o
-INNER JOIN `member` m ON o.mem_id = m.member_id 
-INNER JOIN `employees` em ON o.employee_id = em.employee_id 
-WHERE o.status = 'incomplete'
-ORDER BY o.datetime ASC";
+$order_id = $_GET["order_id"];
+$sql = "SELECT od.size, od.pro_id, p.name AS product_name, p.image AS product_image, 
+               t.name AS topping_name, t.image AS topping_image
+        FROM order_detail od 
+        INNER JOIN `order` o ON od.order_id = o.order_id 
+        INNER JOIN product p ON od.pro_id = p.pro_id 
+        INNER JOIN product t ON od.topping_id = t.pro_id  
+        WHERE o.order_id = '$order_id'";
+
+
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Output data of each row
@@ -29,16 +34,11 @@ if ($result->num_rows > 0) {
     
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>Date Time</th><th>Employee Name</th><th>Member Name</th><th>Detail</th><th>Action</th></tr></thead>";
+    echo "<thead><tr><th>Name</th><th>Type</th><th>toping name</th><th>Image</th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>".$row["datetime"]."</td><td>".$row["em_name"]."</td><td>".$row["m_name"]."</td><td>";
-    echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>Detail</button></a>";
-    echo "</td><td>";
-    echo "<a onclick='return confirmAction();' href='confirm_queue.php' class='btn btn-success btn-lg'>Complete</a>";
-    echo "&nbsp;&nbsp;&nbsp;";
-    echo "<a onclick='return confirmDelete();' href='#' class='btn btn-danger btn-lg'>Cancel</a>";
-    echo "</td></tr>";
+   
+    echo "<tr><td>".$row["product_name"]."</td><td>".$row["size"]."</td><td>".$row["topping_name"]."</td><td><img src='../assets/img/product/".$row["product_image"]."'width='50' height='50' ></td></tr>";
 }
 echo "</tbody>";
 echo "</table>";

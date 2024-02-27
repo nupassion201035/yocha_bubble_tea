@@ -33,7 +33,7 @@ if ($_SESSION['status'] != "employee"){
                     <a class="nav-link" href="manage_member.php">จัดการสมาชิก</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">สรุปยอดขาย</a>
+                    <a class="nav-link" href="report.php">สรุปยอดขาย</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
