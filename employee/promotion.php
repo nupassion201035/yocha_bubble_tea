@@ -3,7 +3,7 @@
 
 
 
-include("navbar_owner.php");
+include("navbar_em.php");
 include("../connection.php");
 
 $sql = "SELECT * FROM product WHERE type = 'drink'";

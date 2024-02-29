@@ -11,6 +11,8 @@ if ($_SESSION['status'] != "owner") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/chart.js"></script>
 </head>
 <nav class="navbar navbar-expand navbar-light bg-faded">
     <div class="container">
@@ -23,7 +25,10 @@ if ($_SESSION['status'] != "owner") {
                 <a class="nav-link" aria-current="page" href="home.php">หน้าสั่งซื้อ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">คิว</a>
+                <a class="nav-link" href="promotion.php">โปรโมชั่น</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="queue.php">คิว</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="manage_employee.php">จัดการพนักงาน</a>
@@ -31,14 +36,12 @@ if ($_SESSION['status'] != "owner") {
             <li class="nav-item">
                 <a class="nav-link" href="manage_product.php">จัดการสินค้า</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="promotion.php">โปรโมชั่น</a>
-            </li>
+           
             <li class="nav-item">
                 <a class="nav-link" href="manage_member.php">จัดการสมาชิก</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">สรุปยอดขาย</a>
+                <a class="nav-link" href="report.php">สรุปยอดขาย</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="logout.php">Logout</a>

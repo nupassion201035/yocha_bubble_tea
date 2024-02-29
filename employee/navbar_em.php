@@ -25,6 +25,9 @@ if ($_SESSION['status'] != "employee"){
                     <a class="nav-link" aria-current="page" href="home.php">หน้าสั่งซื้อ</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="promotion.php">โปรโมชั่น</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="queue.php">คิว</a>
                 </li>
                 <li class="nav-item">

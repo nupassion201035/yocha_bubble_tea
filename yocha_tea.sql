@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2024 at 10:10 PM
+-- Generation Time: Feb 29, 2024 at 01:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,8 +70,8 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`member_id`, `name`, `address`, `telephone`, `status`, `point`, `line`) VALUES
-(1, 'test333333', 'dsadasd', 342323232, 'employee', '4', ''),
-(2, 'ttdfsf', 'fdsfesf', 343434, 'active', '1', 'fsdfwef');
+(1, 'test333333', 'dsadasd', 342323232, 'active', '4', ''),
+(2, 'ttdfsf', 'fdsfesf', 343434, 'active', '3', 'fsdfwef');
 
 -- --------------------------------------------------------
 
@@ -102,11 +102,10 @@ INSERT INTO `order` (`order_id`, `datetime`, `status`, `mem_id`, `employee_id`) 
 (25, '2024-02-23 03:30:49', 'incomplete', 0, 1),
 (26, '2024-02-23 03:31:59', 'incomplete', 0, 1),
 (27, '2024-02-23 18:54:26', 'incomplete', 0, 1),
-(28, '2024-02-23 18:55:13', 'incomplete', 1, 1),
-(29, '2024-02-23 18:56:23', 'incomplete', 1, 1),
+(28, '2024-02-23 18:55:13', 'complete', 1, 1),
 (30, '2024-02-23 18:56:38', 'incomplete', 1, 1),
 (31, '2024-02-23 18:57:02', 'incomplete', 1, 1),
-(32, '2024-02-23 18:57:53', 'incomplete', 1, 1),
+(32, '2024-02-23 18:57:53', 'complete', 1, 1),
 (33, '2024-02-23 19:06:49', 'incomplete', 0, 1),
 (34, '2024-02-23 19:06:51', 'incomplete', 0, 1),
 (35, '2024-02-23 19:11:10', 'incomplete', 0, 1),
@@ -116,7 +115,9 @@ INSERT INTO `order` (`order_id`, `datetime`, `status`, `mem_id`, `employee_id`) 
 (39, '2024-02-27 22:21:41', 'incomplete', 0, 1),
 (40, '2024-02-27 22:21:43', 'incomplete', 0, 1),
 (41, '2024-02-28 00:12:11', 'incomplete', 0, 1),
-(42, '2024-02-28 00:12:35', 'incomplete', 0, 1);
+(42, '2024-02-28 00:12:35', 'incomplete', 0, 1),
+(43, '2024-02-29 00:02:09', 'incomplete', NULL, 1),
+(44, '2024-02-29 00:05:02', 'incomplete', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,10 @@ INSERT INTO `order_detail` (`orderdetail_id`, `pro_id`, `size`, `topping_id`, `o
 (47, 9, 'M', '11', 32),
 (48, 10, 'M', '11', 37),
 (49, 10, 'M', '11', 38),
-(50, 10, 'L', '11', 38);
+(50, 10, 'L', '11', 38),
+(51, 13, 'M', '11', 43),
+(52, 10, 'M', '11', 44),
+(53, 13, 'L', '12', 44);
 
 -- --------------------------------------------------------
 
@@ -212,20 +216,20 @@ INSERT INTO `product` (`pro_id`, `name`, `type`, `image`) VALUES
 
 CREATE TABLE `promotion` (
   `promotion_id` int(11) NOT NULL,
-  `discount` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `point` varchar(20) NOT NULL,
-  `promotion_code` varchar(20) NOT NULL
+  `mem_id` int(11) NOT NULL,
+  `pro_id` int(11) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `topping_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `promotion`
 --
 
-INSERT INTO `promotion` (`promotion_id`, `discount`, `status`, `point`, `promotion_code`) VALUES
-(1, '30', 'inactive', '30', ''),
-(2, '30', 'inactive', '30', ''),
-(3, '23', 'inactive', '12', '');
+INSERT INTO `promotion` (`promotion_id`, `mem_id`, `pro_id`, `datetime`, `status`, `employee_id`, `topping_id`) VALUES
+(6, 1, 13, '2024-02-29 07:40:47', 'incomplete', 1, 11);
 
 --
 -- Indexes for dumped tables
@@ -287,13 +291,13 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `orderdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `orderdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -305,7 +309,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -31,7 +31,7 @@ $row = $result->fetch_assoc()
         <input type="text" class="form-control" id="line_id" name="line_id" value="<?php echo $row["line"] ?>">
       </div>
       <div class="mb-3">
-        <label for="line_id" class="form-label">Line ID</label>
+        <label for="line_id" class="form-label">Point</label>
         <input type="text" class="form-control" id="line_id" name="line_id" value="<?php echo $row["point"] ?>" readonly>
       </div>
       <div class="mb-3">

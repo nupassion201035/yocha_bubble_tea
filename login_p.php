@@ -36,7 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         else {
             // Display an error message
-            $error_message = "Invalid username or password.";
+            
+            ?>
+            <script type="text/javascript">
+                alert("Invalid username or password.");
+                window.location.href = "index.php";
+
+            </script>
+            <?php
         }
     } else {
         // Display an error message if username or password is not set
@@ -45,27 +52,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Error</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="alert alert-danger" role="alert">
-                <?php echo isset($error_message) ? $error_message : "An error occurred."; ?>
-            </div>
-            <a href="index.php" class="btn btn-primary">Back to Login</a>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
