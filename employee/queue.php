@@ -15,9 +15,8 @@ include("../connection.php");
         <h1>คิว</h1>
             
 <?php
-$sql = "SELECT o.order_id, o.datetime, em.name as em_name, m.name as m_name
+$sql = "SELECT o.order_id, o.datetime, em.name as em_name
 FROM `order` o
-INNER JOIN `member` m ON o.mem_id = m.member_id 
 INNER JOIN `employees` em ON o.employee_id = em.employee_id 
 WHERE o.status = 'incomplete'
 ORDER BY o.datetime desc";
@@ -32,7 +31,7 @@ if ($result->num_rows > 0) {
     echo "<thead><tr><th>Date Time</th><th>Employee Name</th><th>Member Name</th><th>Detail</th><th>Action</th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>".$row["datetime"]."</td><td>".$row["em_name"]."</td><td>".$row["m_name"]."</td><td>";
+    echo "<tr><td>".$row["datetime"]."</td><td>".$row["em_name"]."</td><td>test</td><td>";
     echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>Detail</button></a>";
     echo "</td><td>";
     echo "<a onclick='return confirmAction();' href='confirm_queue.php?id=".$row["order_id"]."' class='btn btn-success btn-lg'>Complete</a>";
