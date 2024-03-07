@@ -1,4 +1,7 @@
-<?php include("navbar_em.php"); 
+
+
+<?php include("navbar_owner.php"); 
+
 include("../connection.php");
 
 ?>
