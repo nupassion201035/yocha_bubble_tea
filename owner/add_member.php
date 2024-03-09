@@ -17,7 +17,7 @@ include("navbar_owner.php");
       </div>
       <div class="mb-3">
         <label for="telephone" class="form-label">Telephone</label>
-        <input type="number" class="form-control" id="telephone" name="telephone" required>
+        <input type="number" class="form-control" id="telephone" name="telephone" required minlength="10" maxlength="10">
       </div>
       <div class="mb-3">
         <label for="line_id" class="form-label">Line ID</label>

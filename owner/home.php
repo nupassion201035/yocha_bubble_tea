@@ -246,9 +246,7 @@ $result2 = $conn->query($sql2);
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <img src="../assets\img\product\นมสด.jpg" alt="img_product" class="img_product" style="width: 30%;">
-                    </div>
+                    
                 </div>
                 <label for="uname"><b>Toppings</b></label>
                 <div class="row">

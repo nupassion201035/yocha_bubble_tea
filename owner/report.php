@@ -88,9 +88,6 @@ while($row6 = $result6->fetch_assoc()){
             margin: 0;
             padding: 0;
         }
-        .container {
-            padding: 20px;
-        }
         .card {
             background-color: #f9f9f9;
             border-radius: 5px;
@@ -104,11 +101,11 @@ while($row6 = $result6->fetch_assoc()){
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container-xxl">
         <h1>Welcome to Yocha bubble tea Dashboard</h1>
         <br>
         <div class="row" name="Label_info" style="gap: 10px;">
-            <div class="card mb-3" style="max-width: 300px;">
+            <div class="card mb-3" style="max-width: 300px; background-color:#7BD3EA">
                 <div class="row g-0">
                     <div class="col-md-4">
                         
@@ -121,7 +118,7 @@ while($row6 = $result6->fetch_assoc()){
                     </div>
                 </div>
             </div>
-            <div class="card mb-3" style="max-width: 300px;">
+            <div class="card mb-3" style="max-width: 300px; background-color:#A1EEBD">
                 <div class="row g-0">
                     <div class="col-md-4">
                         
@@ -134,7 +131,7 @@ while($row6 = $result6->fetch_assoc()){
                     </div>
                 </div>
             </div>
-            <div class="card mb-3" style="max-width: 300px;">
+            <div class="card mb-3" style="max-width: 300px; background-color:#F6F7C4" >
                 <div class="row g-0">
                     <div class="col-md-4">
                         
@@ -147,7 +144,7 @@ while($row6 = $result6->fetch_assoc()){
                     </div>
                 </div>
             </div>
-            <div class="card mb-3" style="max-width: 300px;">
+            <div class="card mb-3" style="max-width: 300px;background-color:#F6D6D6" >
                 <div class="row g-0">
                     <div class="col-md-4">
                         

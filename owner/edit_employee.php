@@ -31,7 +31,7 @@ $row = $result->fetch_assoc()
       </div>
       <div class="mb-3">
         <label for="telephone" class="form-label">Telephone</label>
-        <input type="number" class="form-control" id="telephone" name="telephone" value="<?php echo $row["telephone"] ?>">
+        <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $row["telephone"] ?>" pattern="\d{10}" >
       </div>
       <div class="mb-3">
         <label for="line_id" class="form-label">Line ID</label>

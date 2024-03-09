@@ -11,7 +11,7 @@ include("../connection.php");
 </head>
 <body>
 <div class="container-xxl" >
-        <div class="row" style="background-color: aqua;">
+        <div class="row">
         <h1>คิว</h1>
             
 <?php
