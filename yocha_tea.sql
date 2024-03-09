@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2024 at 01:54 AM
+-- Generation Time: Mar 09, 2024 at 07:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,10 +44,8 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employee_id`, `username`, `password`, `name`, `address`, `telephone`, `line_id`, `code_employee`, `status`) VALUES
-(1, 'employee', '1', 'whoyouknow', 'ชานชราที่ 5 3/4 ต.วอชิงตัน อ.จีน จ.โลก 11121', '0800000000', 'whoyouknow', '0', 'employee'),
-(2, 'owner', '1', 'ttdfsf444444', 'fdsfesf', '343434', '0', '4234', 'owner'),
-(4, 'ttt', 'dsad', 'dasd2', 'dasdasd', '23423', 'fsadasd', 'sdfsf', 'employee'),
-(6, 'dev', '1', '12', '12', '12', '12', '12', '12');
+(1, 'employee', '1', 'whoyouknow', 'ชานชราที่ 5 3/4 ต.วอชิงตัน อ.จีน จ.โลก 11121', '0111111111', 'whoyouknow', '0', 'employee'),
+(7, 'owner', '1', 'owner1', 'address test 111/111', '0222222222', 'IDLINE', 'gcode', 'owner');
 
 -- --------------------------------------------------------
 
@@ -59,7 +57,7 @@ CREATE TABLE `member` (
   `member_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `address` varchar(200) NOT NULL,
-  `telephone` int(15) NOT NULL,
+  `telephone` varchar(15) NOT NULL,
   `status` varchar(30) NOT NULL,
   `point` varchar(15) NOT NULL,
   `line` varchar(50) NOT NULL
@@ -70,8 +68,9 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`member_id`, `name`, `address`, `telephone`, `status`, `point`, `line`) VALUES
-(1, 'test333333', 'dsadasd', 342323232, 'active', '4', ''),
-(2, 'ttdfsf', 'fdsfesf', 343434, 'active', '3', 'fsdfwef');
+(1, 'member2', 'dsadasd', '0666666666', 'employee', '5', ''),
+(2, 'member3', 'fdsfesf', '0777777788', 'employee', '-5', ''),
+(3, 'member1', 'test address 111/111 ', '0888888888', 'employee', '2', '');
 
 -- --------------------------------------------------------
 
@@ -92,32 +91,13 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `datetime`, `status`, `mem_id`, `employee_id`) VALUES
-(17, '2024-02-23 03:24:57', 'incomplete', 0, 1),
-(19, '2024-02-23 03:27:41', 'incomplete', 0, 1),
-(20, '2024-02-23 03:28:09', 'incomplete', 0, 1),
-(21, '2024-02-23 03:28:15', 'incomplete', 0, 1),
-(22, '2024-02-23 03:29:42', 'incomplete', 0, 1),
-(23, '2024-02-23 03:29:47', 'incomplete', 0, 1),
-(24, '2024-02-23 03:30:05', 'incomplete', 0, 1),
-(25, '2024-02-23 03:30:49', 'incomplete', 0, 1),
-(26, '2024-02-23 03:31:59', 'incomplete', 0, 1),
-(27, '2024-02-23 18:54:26', 'incomplete', 0, 1),
 (28, '2024-02-23 18:55:13', 'complete', 1, 1),
-(30, '2024-02-23 18:56:38', 'incomplete', 1, 1),
-(31, '2024-02-23 18:57:02', 'incomplete', 1, 1),
+(30, '2024-02-23 18:56:38', 'complete', 1, 1),
+(31, '2024-02-23 18:57:02', 'complete', 1, 1),
 (32, '2024-02-23 18:57:53', 'complete', 1, 1),
-(33, '2024-02-23 19:06:49', 'incomplete', 0, 1),
-(34, '2024-02-23 19:06:51', 'incomplete', 0, 1),
-(35, '2024-02-23 19:11:10', 'incomplete', 0, 1),
-(36, '2024-02-23 19:14:09', 'incomplete', 34, 1),
-(37, '2024-02-23 19:30:12', 'incomplete', 2, 1),
-(38, '2024-02-27 22:21:39', 'incomplete', 0, 1),
-(39, '2024-02-27 22:21:41', 'incomplete', 0, 1),
-(40, '2024-02-27 22:21:43', 'incomplete', 0, 1),
-(41, '2024-02-28 00:12:11', 'incomplete', 0, 1),
-(42, '2024-02-28 00:12:35', 'incomplete', 0, 1),
-(43, '2024-02-29 00:02:09', 'incomplete', NULL, 1),
-(44, '2024-02-29 00:05:02', 'incomplete', 2, 1);
+(51, '2024-03-07 21:15:25', 'complete', 2, 1),
+(59, '2024-03-09 11:00:07', 'incomplete', NULL, 7),
+(60, '2024-03-09 13:20:09', 'incomplete', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -182,7 +162,20 @@ INSERT INTO `order_detail` (`orderdetail_id`, `pro_id`, `size`, `topping_id`, `o
 (50, 10, 'L', '11', 38),
 (51, 13, 'M', '11', 43),
 (52, 10, 'M', '11', 44),
-(53, 13, 'L', '12', 44);
+(53, 13, 'L', '12', 44),
+(54, 9, 'S', '11', 45),
+(55, 9, 'S', '11', 46),
+(56, 13, 'S', '11', 47),
+(57, 10, 'S', '11', 48),
+(58, 10, 'S', '11', 49),
+(59, 10, 'S', '11', 50),
+(60, 13, 'S', '11', 51),
+(61, 10, 'S', '11', 52),
+(62, 13, 'S', '11', 53),
+(63, 10, 'S', '11', 57),
+(64, 15, 'S', '14', 59),
+(65, 15, 'M', '14', 60),
+(66, 16, 'S', '22', 60);
 
 -- --------------------------------------------------------
 
@@ -202,11 +195,17 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`pro_id`, `name`, `type`, `image`) VALUES
-(9, 'kritsada', 'drink', 'ชานมไต้หวัน.jpg'),
-(10, 'nomsod', 'drink', 'ชาเขียวมะลิ.jpg'),
-(11, 'test', 'topping', 'บุก.jpg'),
-(12, '32', 'topping', 'ฟรุตตี้สลัด.jpg'),
-(13, 'tgtgt', 'drink', 'ชาไทย.jpg');
+(13, 'ชาไทย', 'drink', 'ชาไทย.jpg'),
+(14, 'ไข่มุก', 'topping', 'ไข่มุก.jpg'),
+(15, 'นมชมพู', 'drink', 'นมชมพู.jpg'),
+(16, 'โอวัลติน', 'drink', 'โอวัลติน.jpg'),
+(17, 'โกโก้', 'drink', 'โกโก้.jpg'),
+(18, 'ชาเขียวมะลิ', 'drink', 'ชาเขียวมะลิ.jpg'),
+(19, 'ชาเขียวนม', 'drink', 'ชาเขียวนม.jpg'),
+(20, 'กาแฟเย็น', 'drink', 'กาแฟเย็น.jpg'),
+(21, 'นมสด', 'drink', 'นมสด.jpg'),
+(22, 'บุก', 'topping', 'บุก.jpg'),
+(23, 'ฟรุตตี้สลัด', 'topping', 'ฟรุตตี้สลัด.jpg');
 
 -- --------------------------------------------------------
 
@@ -229,7 +228,8 @@ CREATE TABLE `promotion` (
 --
 
 INSERT INTO `promotion` (`promotion_id`, `mem_id`, `pro_id`, `datetime`, `status`, `employee_id`, `topping_id`) VALUES
-(6, 1, 13, '2024-02-29 07:40:47', 'incomplete', 1, 11);
+(6, 1, 13, '2024-02-29 07:40:47', 'incomplete', 1, 11),
+(7, 2, 16, '2024-03-09 13:25:11', 'incomplete', 1, 14);
 
 --
 -- Indexes for dumped tables
@@ -279,37 +279,37 @@ ALTER TABLE `promotion`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `orderdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `orderdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
