@@ -34,6 +34,8 @@ while($row = $result->fetch_assoc()) {
     echo "<tr><td>".$row["datetime"]."</td><td>".$row["em_name"]."</td><td>";
     echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>Detail</button></a>";
     echo "</td><td>";
+    echo "<a onclick='return confirmAction();' href='calculate.php?id=".$row["order_id"]."' class='btn btn-success btn-lg'>Complete</a>";
+    echo "&nbsp;&nbsp;&nbsp;";
     echo "<a onclick='return confirmAction();' href='confirm_queue.php?id=".$row["order_id"]."' class='btn btn-success btn-lg'>Complete</a>";
     echo "&nbsp;&nbsp;&nbsp;";
     echo "<a onclick='return confirmDelete();' href='delete_queue.php?id=".$row["order_id"]."' class='btn btn-danger btn-lg'>Cancel</a>";
