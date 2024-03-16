@@ -1,4 +1,4 @@
-<?php include("navbar_owner.php"); 
+<?php include("navbar_em.php"); 
 include("../connection.php");
 $total = 0;
 $qid = $_GET["id"];
