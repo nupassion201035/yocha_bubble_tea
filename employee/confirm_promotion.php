@@ -29,8 +29,10 @@ $row8 = $result8->fetch_assoc();
 $mem_id = $row8['member_id'];
 $point = $row8['point'];
 
-echo $point ;
+
 $point_need = $count_cart*10;
+$point = (int)$row8['point'];
+$point_need = (int)($count_cart * 10);
 if($point<$point_need){
     ?>
             <script type="text/javascript">
@@ -38,6 +40,7 @@ if($point<$point_need){
                 window.location.href = "promotion.php";
             </script>
             <?php
+            exit();
 }
 echo "<br>" ;
 }else{
