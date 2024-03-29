@@ -3,6 +3,7 @@
 error_reporting(0);
 ob_start();
 session_start();
+$qid = $_GET['id'];
 require('../fpdf/fpdf.php'); // Ensure the path to fpdf.php is correct
 
 if (!isset($_SESSION['receipt_data'])) {
@@ -20,7 +21,7 @@ $pdf->AddFont('garuda', '', 'Garuda.php');
 $pdf->SetFont('Arial', 'B', 16);
 
 // Add a header
-$pdf->Cell(190, 10, 'Receipt', 0, 1, 'C');
+$pdf->Cell(190, 10, 'Yocha Bubble Tea', 0, 1, 'C');
 
 $pdf->SetFont('Arial', '', 12);
 
@@ -49,10 +50,16 @@ $pdf->Cell(40, 10, number_format($receipt_data['customerMoney'], 2), 1, 1, 'C');
 $pdf->Cell(150, 10, 'Withdrawal (Change)', 1, 0, 'L');
 $pdf->Cell(40, 10, number_format($receipt_data['withdrawal'], 2), 1, 1, 'C');
 
+$pdf->Cell(150, 10, "Employee", 0, 0, 'L');
+$pdf->Cell(40, 10, $receipt_data['em_name'], 0, 1, 'C');
+
+$pdf->Cell(150, 10, "Datetime", 0, 0, 'L');
+$pdf->Cell(40, 10, $receipt_data['o_datetime'], 0, 1, 'C');
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $pdf->Output('D', 'receipt.pdf');
 
 // Optionally, unset the receipt data if it's no longer needed after this point
 unset($_SESSION['receipt_data']);
+
 ?>

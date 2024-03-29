@@ -21,7 +21,7 @@ include("../connection.php");
 <?php
 $order_id = $_GET["order_id"];
 $sql = "SELECT od.size, od.pro_id, p.name AS product_name, p.image AS product_image, 
-               t.name AS topping_name, t.image AS topping_image
+               t.name AS topping_name, t.image AS topping_image , od.quantity AS quantity
         FROM order_detail od 
         INNER JOIN `order` o ON od.order_id = o.order_id 
         INNER JOIN product p ON od.pro_id = p.pro_id 
@@ -37,11 +37,11 @@ if ($result->num_rows > 0) {
     
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>Name</th><th>Type</th><th>toping name</th><th>Image</th></tr></thead>";
+    echo "<thead><tr><th>Name</th><th>Type</th><th>toping name</th><th>Quantity</th><th>Image</th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
    
-    echo "<tr><td>".$row["product_name"]."</td><td>".$row["size"]."</td><td>".$row["topping_name"]."</td><td><img src='../assets/img/product/".$row["product_image"]."'width='50' height='50' ></td></tr>";
+    echo "<tr><td>".$row["product_name"]."</td><td>".$row["size"]."</td><td>".$row["topping_name"]."</td><td>".$row["quantity"]."</td><td><img src='../assets/img/product/".$row["product_image"]."'width='50' height='50' ></td></tr>";
 }
 echo "</tbody>";
 echo "</table>";

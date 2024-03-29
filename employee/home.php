@@ -194,23 +194,31 @@ $result2 = $conn->query($sql2);
                 <?php 
                     if (!empty($_SESSION['cart'])) {
                         foreach ($_SESSION['cart'] as $index => $order) {
+                            // Unique IDs for each item
+                            $quantityDisplayId = "countDrinkDisplay-" . $index;
+                            $increaseButtonId = "increaseButton-" . $index;
+                            $decreaseButtonId = "decreaseButton-" . $index;
+                            $priceDisplayId = "price-$index"; // Ensure $index is defined appropriately
+                            $totalPrice = $order['price'] * $order['quantity'];
+                    
                             echo '<div class="row mb-2">';
                             echo '  <div class="col">';
                             echo        $order['drink']['name'] . ' ' . $order['size'];
-
-                            if (!empty($order['topping']['name'])) { // ดูว่าใส่ topping มั้ย
+                            if (!empty($order['topping']['name'])) {
                                 echo '<div> + '. $order['topping']['name'] . '</div>';
                             }
-
                             echo '  </div>';
                             echo '  <div class="col">';
-                            echo        '1';  
+                            // Adjusted for unique IDs
+                            echo "<button type='button' class='btn btn-secondary btn-sm' id='$decreaseButtonId' onclick='changeQuantity(-1, $index)'>-</button>";
+                            echo " <span id='$quantityDisplayId'>".$order['quantity']."</span>";
+                            echo "<button type='button' class='btn btn-secondary btn-sm' id='$increaseButtonId' onclick='changeQuantity(1, $index)'>+</button>";
                             echo '  </div>';
                             echo '  <div class="col">';
-                            echo        $order['price'];    
+                            echo " <span id='$priceDisplayId' data-base-price='".$order['price']."'>$totalPrice</span>";
                             echo '  </div>';
                             echo '  <div class="col">';
-                            echo        '<a class="btn btn-danger pt-1" href="remove_from_cart.php?cart_index=' . $index . '">X</a>';   
+                            echo        "<a class='btn btn-danger pt-1' href='remove_from_cart.php?cart_index=$index'>X</a>";
                             echo '  </div>';
                             echo '</div>';
                         }
@@ -226,7 +234,7 @@ $result2 = $conn->query($sql2);
     <div id="popup" class="modal">
         <form class="modal-content animate" action="action_page.php" method="post">
             <div class="container_popup">
-                <h1>ลายระเอียดสั่งซื้อ</h1>
+                <h1>รายละเอียดสั่งซื้อ</h1>
                 <label for="uname"><b>Size</b></label>
                 <div class="row">
                     <div class="col-md-8">
@@ -249,6 +257,7 @@ $result2 = $conn->query($sql2);
                             </label>
                         </div>
                     </div>
+                    
                 </div>
                 <label for="uname"><b>Toppings</b></label>
                 <div class="row">
@@ -271,6 +280,36 @@ $result2 = $conn->query($sql2);
 </body>
 
 <script>
+  function changeQuantity(change, index) {
+    var quantityDisplayId = 'countDrinkDisplay-' + index;
+    var priceDisplayId = 'price-' + index;
+    var quantityDisplay = document.getElementById(quantityDisplayId);
+    var priceDisplay = document.getElementById(priceDisplayId);
+    var currentQuantity = parseInt(quantityDisplay.innerText);
+    var basePrice = parseFloat(priceDisplay.getAttribute('data-base-price')); // Retrieve the base price
+    var newQuantity = currentQuantity + change;
+
+    if (newQuantity >= 1) { // Prevent quantity from being less than 1
+        quantityDisplay.innerText = newQuantity; // Update the display
+
+        // Calculate the new total price and update the display
+        var newTotalPrice = basePrice * newQuantity;
+        priceDisplay.innerText = newTotalPrice.toFixed(2); // Assuming you want to round to two decimal places
+
+        // Create an AJAX request to update the server-side session
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_cart_quantity.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onload = function() {
+            if (this.status == 200) {
+                // Optional: Handle response
+                console.log("Response from server:", this.responseText);
+                // Update the display based on the server's response if necessary
+            }
+        };
+        xhr.send("index=" + index + "&quantity=" + newQuantity);
+    }
+}
     function showResult(str) {
             if (str.length == 0) {
                 document.getElementById("searchResult").innerHTML = "";

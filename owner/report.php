@@ -1,78 +1,75 @@
 <?php
-
 include("navbar_owner.php");
 include("../connection.php");
 
 date_default_timezone_set('Asia/Bangkok');
 
 $this_day = date("Y-m-d");
-
 $this_month = date("Y-m");
 $this_year = date("Y");
 
-$sql_time = "";
-if(isset($_GET['option'])){
-    $select = $_GET['option'] ;
-}else{
-    $select = '' ;
-}
-
-$sql4 = "SELECT * FROM `product` where `type` = 'drink'";
-$result4 = $conn->query($sql4);
-$count_drink = $result4->num_rows;
-
-$sql5 = "SELECT * FROM `member` where `status` = 'active'";
-$result5 = $conn->query($sql5);
-$count_member = $result5->num_rows;
-if($select == 'day'){
-    $sql_time = $this_day;
-} else if($select == 'month') {
-    $sql_time = $this_month;
-} else if($select == 'year') {
-    $sql_time = $this_year;
-} else {
-    // If 'all' or any other value is selected, set $sql_time to an empty string
-    $sql_time = "";
-}
-$total_sale = 0 ;
-$sql6 = "SELECT * FROM `order_detail` od
-        INNER JOIN `order` o ON od.order_id = o.order_id 
-        where  o.datetime like '$sql_time%'";
-        $result6 = $conn->query($sql6);
-while($row6 = $result6->fetch_assoc()){
-    if($row6['size']=='S'){$total_sale+=30;}
-    
-    else if($row6['size']=='M'){$total_sale+=40;}
-    else if($row6['size']=='L'){$total_sale+=50;}
-}
+// Initialize variables
+$select = isset($_GET['option']) ? $_GET['option'] : '';
+$dateStart = isset($_GET['dateStart']) ? $_GET['dateStart'] : '';
+$dateEnd = isset($_GET['dateEnd']) ? $_GET['dateEnd'] : '';
+$total_sale = 0;
 $max_pro_id = "";
 $name_popular = "";
 $max_count = 0;
-$sql7 = "SELECT COUNT(pro_id) AS count, pro_id 
-         FROM `order_detail` od
-         INNER JOIN `order` o ON od.order_id = o.order_id
-         WHERE o.datetime LIKE '$sql_time%'
-         GROUP BY pro_id;";
-    $result7 = $conn->query($sql7);
-    while($row7 = $result7->fetch_assoc()){
- 
-        if ($row7['count'] > $max_count) {
-            $max_count = $row7['count']; // Update the maximum count
-            $max_pro_id = $row7['pro_id']; // Update the corresponding product ID
-        }
-    }
 
-    $sql8 = "SELECT * FROM `product` WHERE pro_id = '$max_pro_id'";
-    $result8 = $conn->query($sql8);
-    while($row8 = $result8->fetch_assoc()){
-    $name_popular = $row8['name'];
-    }
-while($row6 = $result6->fetch_assoc()){
-    if($row6['size']=='S'){$total_sale+=30;}
-    
-    else if($row6['size']=='M'){$total_sale+=40;}
-    else if($row6['size']=='L'){$total_sale+=50;}
+// Fetch product and member counts
+$sql4 = "SELECT * FROM `product` WHERE `type` = 'drink'";
+$count_drink = $conn->query($sql4)->num_rows;
+
+$sql5 = "SELECT * FROM `member`";
+$count_member = $conn->query($sql5)->num_rows;
+
+// Set SQL time condition based on selection
+$sql_time_condition = "";
+if ($select == 'day') {
+    $sql_time_condition = " AND o.datetime LIKE '{$this_day}%'";
+} elseif ($select == 'month') {
+    $sql_time_condition = " AND o.datetime LIKE '{$this_month}%'";
+} elseif ($select == 'year') {
+    $sql_time_condition = " AND o.datetime LIKE '{$this_year}%'";
+} elseif (!empty($dateStart) && !empty($dateEnd)) {
+    $sql_time_condition = " AND o.datetime BETWEEN '$dateStart' AND '$dateEnd 23:59:59'";
 }
+
+// Calculate total sales
+$sql6 = "SELECT size FROM `order_detail` od INNER JOIN `order` o ON od.order_id = o.order_id WHERE 1=1 {$sql_time_condition}";
+$result6 = $conn->query($sql6);
+while ($row6 = $result6->fetch_assoc()) {
+    switch ($row6['size']) {
+        case 'S':
+            $total_sale += 30;
+            break;
+        case 'M':
+            $total_sale += 40;
+            break;
+        case 'L':
+            $total_sale += 50;
+            break;
+    }
+}
+
+// Find most popular product
+$sql7 = "SELECT COUNT(pro_id) AS count, pro_id FROM `order_detail` od INNER JOIN `order` o ON od.order_id = o.order_id WHERE 1=1 {$sql_time_condition} GROUP BY pro_id";
+$result7 = $conn->query($sql7);
+while ($row7 = $result7->fetch_assoc()) {
+    if ($row7['count'] > $max_count) {
+        $max_count = $row7['count'];
+        $max_pro_id = $row7['pro_id'];
+    }
+}
+
+if ($max_pro_id) {
+    $sql8 = "SELECT name FROM `product` WHERE pro_id = '$max_pro_id'";
+    $name_popular = $conn->query($sql8)->fetch_object()->name;
+}
+
+// Render the HTML below...
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,13 +155,23 @@ while($row6 = $result6->fetch_assoc()){
                 </div>
             </div>
         </div>
-        <label for="teaSelection">Select option of report :</label>
-<select id="reportSelection" name="report_option">
-<option value="all" <?php if($select=='all') echo "selected";?> >All</option>
-  <option value="day"  <?php if($select=='day') echo "selected";?>>Day</option>
-  <option value="month"  <?php if($select=='month') echo "selected";?>>Month</option>
-  <option value="year" <?php if($select=='year') echo "selected";?>>Year </option>
-</select>
+        <form action="" method="get">
+    <label for="reportSelection">Select option of report:</label>
+    <select id="reportSelection" name="option">
+        <option value="all" <?php if($select=='all') echo "selected";?> >All</option>
+        <option value="day" <?php if($select=='day') echo "selected";?>>Day</option>
+        <option value="month" <?php if($select=='month') echo "selected";?>>Month</option>
+        <option value="year" <?php if($select=='year') echo "selected";?>>Year</option>
+    </select>
+    <br>
+    Date Start: 
+    <input type="date" name="dateStart" id="dateStart" value="<?php echo $dateStart; ?>">
+    Date End:
+    <input type="date" name="dateEnd" id="dateEnd" value="<?php echo $dateEnd; ?>">
+    <input type="submit" value="Filter">
+</form>
+
+
 <div >
         <canvas id="myChart"></canvas>
     </div>
@@ -181,56 +188,87 @@ while($row6 = $result6->fetch_assoc()){
 // Set SQL time based on selected option
 
 
+$select = isset($_GET['option']) ? $_GET['option'] : 'all';
+$dateStart = isset($_GET['dateStart']) ? $_GET['dateStart'] : '';
+$dateEnd = isset($_GET['dateEnd']) ? $_GET['dateEnd'] : '';
     
-    
-    
-    $sql="SELECT * from `product`";
-    $result = $conn->query($sql);
-    $productArray = array();
-    $product_id = array();
-    $values = array();
-    // Check if there are any rows returned from the query
-    if ($result->num_rows > 0) {
-        // Loop through each row of the result set
-        while($row = $result->fetch_assoc()) {
-            // Add each row to the array
-            $productArray[] = $row['name'];
-            $product_id[] = $row['pro_id'];
-        }
-    } else {
-        // If there are no rows returned, you can handle it here
-        echo "No products found.";
+$productArray = array();
+$product_id = array();
+$values = array();
+
+// Fetch all products
+$sql = "SELECT * FROM `product`";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $productArray[] = $row['name'];
+        $product_id[] = $row['pro_id'];
     }
-    foreach($product_id as $item){
-       
-        if($select == 'day'){
-            $sql_time = $this_day;
-        } else if($select == 'month') {
-            $sql_time = $this_month;
-        } else if($select == 'year') {
-            $sql_time = $this_year;
-        } else {
-            // If 'all' or any other value is selected, set $sql_time to an empty string
-            $sql_time = "";
-        }
-        
-        $sql2 = "SELECT * FROM `order_detail` od
-        INNER JOIN `order` o ON od.order_id = o.order_id 
-        where (pro_id = $item or topping_id = $item) and o.datetime like '$sql_time%'";
-        $result2 = $conn->query($sql2);
-        $values[] = $result2->num_rows;
+} else {
+    echo "No products found.";
+    // Potentially exit or handle the no products found scenario
+}
+
+// Loop through each product to count orders
+foreach($product_id as $item) {
+    $sql2 = "SELECT COUNT(*) as order_count FROM `order_detail` od
+             INNER JOIN `order` o ON od.order_id = o.order_id
+             WHERE (od.pro_id = $item OR od.topping_id = $item)";
+
+    // Modify SQL based on time selection
+    if ($select == 'day') {
+        $sql2 .= " AND o.datetime LIKE '{$this_day}%'";
+    } elseif ($select == 'month') {
+        $sql2 .= " AND o.datetime LIKE '{$this_month}%'";
+    } elseif ($select == 'year') {
+        $sql2 .= " AND o.datetime LIKE '{$this_year}%'";
+    } elseif ($select == 'all') {
+        // No additional SQL condition needed for 'all'
+    } if (!empty($dateStart) && !empty($dateEnd)) {
+        // Handle custom date range
+        $dateEndFormatted = $dateEnd . ' 23:59:59';
+        $sql2 .= " AND o.datetime BETWEEN '$dateStart' AND '$dateEnd 23:59:59'";
     }
-    foreach($values as $item2){
-        
-        
-    }
-    $valuesJSON = json_encode($values);
-    $labelsJSON = json_encode($productArray);
+
+    $result2 = $conn->query($sql2);
+    $row2 = $result2->fetch_assoc();
+    $values[] = $row2 ? $row2['order_count'] : 0; // Add the count to values, defaulting to 0 if no result
+}
+
+$valuesJSON = json_encode($values);
+$labelsJSON = json_encode($productArray);
 
     ?>
     
     <script>
-        // Data for the horizontal bar chart
+        document.getElementById("dateStart").addEventListener("change", fetchData);
+document.getElementById("dateEnd").addEventListener("change", fetchData);
+
+function fetchData() {
+    // Extract the values from your date inputs
+    var dateStart = document.getElementById("dateStart").value;
+    var dateEnd = document.getElementById("dateEnd").value;
+    var option = document.getElementById("reportSelection").value;
+
+    // Use fetch to send the request to your server-side PHP script
+    fetch('path_to_your_php_script.php?dateStart=' + dateStart + '&dateEnd=' + dateEnd + '&option=' + option)
+        .then(response => response.json())
+        .then(data => {
+            // Assuming the response data is the new set of values for the chart
+            updateChart(data);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function updateChart(data) {
+    // Assuming 'myChart' is a global variable that holds your chart instance
+    myChart.data.labels = data.labels;
+    myChart.data.datasets.forEach((dataset) => {
+        dataset.data = data.values;
+    });
+    myChart.update();
+}
         const labels = <?php echo $labelsJSON ;?>;
         const data = {
             labels: labels,

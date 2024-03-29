@@ -59,9 +59,13 @@ foreach ($_SESSION['cart'] as $index => $order) {
     echo "Drink: ". $order['drink']['pro_id'].'/'.$order['drink']['name'].'/'.$order['drink']['type'].'/'.$order['drink']['image']."<br>";
     echo "Topping: " . $order['topping']['pro_id'].'/'.$order['topping']['name'].'/'.$order['topping']['type'].'/'.$order['topping']['image']."<br>";
     echo "Price: " . $order['price'] . "<br><br>";
-    $sql3 = "INSERT into order_detail (`pro_id`, `size`, `topping_id`, `order_id`) VALUES (?, ?, ?, ?)";
+    $order['quantity'] = (int)$order['quantity'];
+    
+
+     
+    $sql3 = "INSERT into order_detail (`pro_id`, `size`, `topping_id`, `order_id`,`quantity`) VALUES (?, ?, ?, ?, ?)";
     $query = $conn->prepare($sql3);
-    $query->bind_param("issi", $order['drink']['pro_id'], $order['size'], $order['topping']['pro_id'],$row['order_id']);
+    $query->bind_param("issii", $order['drink']['pro_id'], $order['size'], $order['topping']['pro_id'],$row['order_id'],$order['quantity']);
     $query->execute();
 };
 
@@ -88,3 +92,4 @@ $row4 = $result4->fetch_assoc();
 }
 
  header("Location: ./clear_cart.php");
+
