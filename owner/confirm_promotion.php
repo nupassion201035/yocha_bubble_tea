@@ -25,28 +25,36 @@ $result8 = $query8->get_result();
 
         
 
+
+
 $row8 = $result8->fetch_assoc();
 $mem_id = $row8['member_id'];
 $point = $row8['point'];
-
-echo $point ;
 $point_need = $count_cart*10;
+echo $point ;
+echo $point_need ;
+
+$point = (int)$row8['point'];
+$point_need = (int)($count_cart * 10);
 if($point<$point_need){
     ?>
-            <script type="text/javascript">
+            <script type="text/javascript" >
                 alert("No have enough point.");
                 window.location.href = "promotion.php";
             </script>
             <?php
+             exit();
 }
-echo "<br>" ;
-}else{
+} else {
+    // Your else block code
+    echo "<br>";
     $mem_id = '';
 }
 
 date_default_timezone_set('Asia/Bangkok');
 $current_time = date("Y-m-d H:i:s");
 echo $current_time;
+
 
 
 
@@ -101,3 +109,6 @@ $row4 = $result4->fetch_assoc();
 
 }
 header("Location: ./clear_cart2.php");
+
+
+?>
