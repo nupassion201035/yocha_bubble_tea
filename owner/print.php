@@ -39,21 +39,26 @@ foreach ($receipt_data as $item) {
         $pdf->Cell(40, 10, number_format($item['price'], 2), 1, 1, 'C');
     }
 }
-$pdf->SetFont('Arial', '', 12);
+$pdf->SetFont('garuda', '', 12);
 // Add the totals
-$pdf->Cell(150, 10, 'Total Price', 1, 0, 'L');
+$cp874_text_price_all = iconv('UTF-8', 'windows-874', 'ราคารวม');
+$pdf->Cell(150, 10, $cp874_text_price_all, 1, 0, 'L');
 $pdf->Cell(40, 10, number_format($receipt_data['totalPrice'], 2), 1, 1, 'C');
 
-$pdf->Cell(150, 10, "Customer's Money", 1, 0, 'L');
+$cp874_text_money_get = iconv('UTF-8', 'windows-874', 'เงินที่รับ');
+$pdf->Cell(150, 10, $cp874_text_money_get, 1, 0, 'L');
 $pdf->Cell(40, 10, number_format($receipt_data['customerMoney'], 2), 1, 1, 'C');
 
-$pdf->Cell(150, 10, 'Withdrawal (Change)', 1, 0, 'L');
+$cp874_text_change = iconv('UTF-8', 'windows-874', 'เงินทอน');
+$pdf->Cell(150, 10, $cp874_text_change, 1, 0, 'L');
 $pdf->Cell(40, 10, number_format($receipt_data['withdrawal'], 2), 1, 1, 'C');
 
-$pdf->Cell(150, 10, "Employee", 0, 0, 'L');
+$cp874_text_employee = iconv('UTF-8', 'windows-874', 'พนักงาน');
+$pdf->Cell(150, 10, $cp874_text_employee, 0, 0, 'L');
 $pdf->Cell(40, 10, $receipt_data['em_name'], 0, 1, 'C');
 
-$pdf->Cell(150, 10, "Datetime", 0, 0, 'L');
+$cp874_text_datetime = iconv('UTF-8', 'windows-874', 'วันที่');
+$pdf->Cell(150, 10, $cp874_text_datetime, 0, 0, 'L');
 $pdf->Cell(40, 10, $receipt_data['o_datetime'], 0, 1, 'C');
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
