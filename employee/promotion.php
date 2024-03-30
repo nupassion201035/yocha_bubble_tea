@@ -226,7 +226,7 @@ $result2 = $conn->query($sql2);
     <div id="popup" class="modal">
         <form class="modal-content animate" action="action2.php" method="post">
             <div class="container_popup">
-                <h1>ลายระเอียดสั่งซื้อ</h1>
+                <h1>รายละเอียดสั่งซื้อ</h1>
                 <label for="uname"><b>Size</b></label>
                 <div class="row">
                     <div class="col-md-8">
