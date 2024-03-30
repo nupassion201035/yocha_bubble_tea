@@ -13,7 +13,7 @@ if (isset($_GET['query'])) {
             echo "<p> name :"  . $row['telephone'] ."</p>";
         }
     } else {
-        echo "<p>No suggestions found</p>";
+        echo "<p>ไม่พบที่เลือกไว้</p>";
     }
 }
 

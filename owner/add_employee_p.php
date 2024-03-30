@@ -17,7 +17,7 @@ $status = $_POST['status'];
 
 $stmt->execute();
 
-echo "New employee added successfully";
+echo "เพิ่มพนักงานใหม่สำเร็จ";
 
 $stmt->close();
 $conn->close();

@@ -15,7 +15,7 @@ $line_id = $_POST['line_id'];
 
 $stmt->execute();
 
-echo "New member added successfully";
+echo "เพิ่มสมาชิกใหม่สำเร็จ";
 
 $stmt->close();
 $conn->close();

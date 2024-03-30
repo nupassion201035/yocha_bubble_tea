@@ -11,8 +11,8 @@ include("../connection.php");
 </head>
 <body>
 <div class="container-xxl" >
-        <div class="row" style="background-color: aqua;">
-        <a href="queue.php"><button class="btn btn-primary"> Back to Queue</button></a>
+        <div class="row">
+        <a href="queue.php"><button class="btn btn-primary"> กลับหน้าคิว</button></a>
         <h1>คิว</h1>
             
 <?php
@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>Name</th><th>Type</th><th>toping name</th><th>Image</th></tr></thead>";
+    echo "<thead><tr><th>เมนู</th><th>ประเภท</th><th>ท็อปปิ้ง</th><th>รูปภาพ</th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
    

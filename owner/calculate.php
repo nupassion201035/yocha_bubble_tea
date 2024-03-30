@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
     
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>Drink</th><th>Size</th><th>Quantity</th><th>Topping</th><th>Price</th></tr></thead>";
+    echo "<thead><tr><th>เมนู</th><th>Size</th><th>จำนวน</th><th>ท็อปปิ้ง</th><th>ราคา</th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
     echo "<tr><td>".$row["pro_name"]."</td><td>".$row["item"]."</td><td>".$row["quantity"]."</td><td>";
@@ -69,7 +69,7 @@ echo "</div>";
 <form method="post">
     <div class="col-md-4">
     <input type="number" class="form-control" name="totalPrice" value="<?php echo $total; ?>" hidden > 
-    Customer's Money: <input type="number" name="customerMoney" class="form-control"> <br>
+    เงินรับจากลูกค้า: <input type="number" name="customerMoney" class="form-control"> <br>
    
     <input type="submit" class="btn btn-primary" value="Calculate Withdrawal"><br><br>
     <?php
@@ -112,11 +112,11 @@ if(isset($_POST['totalPrice'], $_POST['customerMoney'])) {
     $_SESSION['receipt_data']['withdrawal'] = $withdrawal;
     $_SESSION['receipt_data']['em_name'] = $em_name;
     $_SESSION['receipt_data']['o_datetime'] = $o_datetime;
-    echo "Total Price: ".$totalPrice ;
+    echo "ราคาสุทธิ: ".$totalPrice ;
     echo "<br>";
-    echo "Customer's Money: ".$customerMoney ;
+    echo "เงินรับจากลูกค้า: ".$customerMoney ;
     echo "<br>";
-    echo "Withdrawal (Change): " . $withdrawal;
+    echo "เงินทอน: " . $withdrawal;
 }
 ?>
 <br> 
@@ -124,7 +124,7 @@ if(isset($_POST['totalPrice'], $_POST['customerMoney'])) {
    
 </form>
 <br>
-<a href="print.php?id=<?php echo $qid ;?>" class="btn btn-primary">Print</a><br><br>
+<a href="print.php?id=<?php echo $qid ;?>" class="btn btn-primary">สั่งพิ่มใบเสร็จ</a><br><br>
     
 </div>
         </div>
@@ -138,11 +138,11 @@ if(isset($_POST['totalPrice'], $_POST['customerMoney'])) {
 </html>
 <script>
     function confirmDelete() {
-      return confirm("Are you sure you want to delete this?");
+      return confirm("ยืนยันการลบรายการนี้?");
     }
   </script>
   <script>
     function confirmAction() {
-      return confirm("Are you sure you want to complete this?");
+      return confirm("ยืนยันการทำรายการ?");
     }
   </script>

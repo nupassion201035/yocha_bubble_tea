@@ -99,7 +99,6 @@ if ($max_pro_id) {
 </head>
 <body>
     <div class="container-xxl">
-        <h1>Welcome to Yocha bubble tea Dashboard</h1>
         <br>
         <div class="row" name="Label_info" style="gap: 10px;">
             <div class="card mb-3" style="max-width: 300px; background-color:#7BD3EA">
@@ -109,7 +108,7 @@ if ($max_pro_id) {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Menu</h5>
+                            <h5 class="card-title">เมนู</h5>
                             <p class="card-text"><?php echo $count_drink ; ?> รายการ</p>
                         </div>
                     </div>
@@ -122,7 +121,7 @@ if ($max_pro_id) {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Member</h5>
+                            <h5 class="card-title">สมาชิก</h5>
                             <p class="card-text"><?php echo $count_member ; ?> คน</p>
                         </div>
                     </div>
@@ -135,7 +134,7 @@ if ($max_pro_id) {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Total Sales</h5>
+                            <h5 class="card-title">ยอดขายทั้งหมด</h5>
                             <p class="card-text"><?php echo $total_sale ; ?> บาท</p>
                         </div>
                     </div>
@@ -148,7 +147,7 @@ if ($max_pro_id) {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Popular Menu</h5>
+                            <h5 class="card-title">เมนูขายดี</h5>
                             <p class="card-text"><?php echo $name_popular ; ?></p>
                         </div>
                     </div>
@@ -156,17 +155,17 @@ if ($max_pro_id) {
             </div>
         </div>
         <form action="" method="get">
-    <label for="reportSelection">Select option of report:</label>
+    <label for="reportSelection">เลือกการแสดง:</label>
     <select id="reportSelection" name="option">
-        <option value="all" <?php if($select=='all') echo "selected";?> >All</option>
-        <option value="day" <?php if($select=='day') echo "selected";?>>Day</option>
-        <option value="month" <?php if($select=='month') echo "selected";?>>Month</option>
-        <option value="year" <?php if($select=='year') echo "selected";?>>Year</option>
+        <option value="all" <?php if($select=='all') echo "selected";?> >ทั้งหมด</option>
+        <option value="day" <?php if($select=='day') echo "selected";?>>วัน</option>
+        <option value="month" <?php if($select=='month') echo "selected";?>>เดือน</option>
+        <option value="year" <?php if($select=='year') echo "selected";?>>ปี</option>
     </select>
     <br>
-    Date Start: 
+    วันที่เริ่มต้น: 
     <input type="date" name="dateStart" id="dateStart" value="<?php echo $dateStart; ?>">
-    Date End:
+    วันที่สิ้นสุด:
     <input type="date" name="dateEnd" id="dateEnd" value="<?php echo $dateEnd; ?>">
     <input type="submit" value="Filter">
 </form>
@@ -273,7 +272,7 @@ function updateChart(data) {
         const data = {
             labels: labels,
             datasets: [{
-                label: '# of Votes',
+                label: 'จำนวนการสั่งซื้อ',
                 data: <?php echo $valuesJSON ;?>,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',

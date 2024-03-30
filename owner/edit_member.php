@@ -15,15 +15,15 @@ $row = $result->fetch_assoc()
         <input type="hidden" name="id" value="<?php echo $id ?>" />
      
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">ชื่อ</label>
         <input type="text" class="form-control" id="name" name="name" value="<?php echo $row["name"] ?>">
       </div>
       <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
+        <label for="address" class="form-label">ที่อยู่</label>
         <textarea class="form-control" id="address" name="address" rows="3" ><?php echo $row["address"] ?></textarea>
       </div>
       <div class="mb-3">
-        <label for="telephone" class="form-label">Telephone</label>
+        <label for="telephone" class="form-label">เบอร์โทรศัพท์</label>
         <input type="number" class="form-control" id="telephone" name="telephone" value="<?php echo $row["telephone"] ?>">
       </div>
       <div class="mb-3">
@@ -31,16 +31,16 @@ $row = $result->fetch_assoc()
         <input type="text" class="form-control" id="line_id" name="line_id" value="<?php echo $row["line"] ?>">
       </div>
       <div class="mb-3">
-        <label for="line_id" class="form-label">Point</label>
+        <label for="line_id" class="form-label">แต้มสะสม</label>
         <input type="text" class="form-control" id="line_id" name="line_id" value="<?php echo $row["point"] ?>" readonly>
       </div>
       <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
+        <label for="status" class="form-label">สถานะ</label>
         <select class="form-select" id="status" name="status" >
         <option value="employee" <?php echo ($row['status'] == 'active') ? 'selected' : ''; ?>>Active</option>
     <option value="owner" <?php echo ($row['status'] == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">Edit</button>
+      <button type="submit" class="btn btn-primary">แก้ไข</button>
     </form>
   </div>

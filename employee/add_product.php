@@ -2,21 +2,21 @@
 include("navbar_em.php");
 ?>
 <div class="container">
-    <h1>Add Product</h1>
+    <h1>เพิ่มเมนู</h1>
     <form action="add_product_p.php" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="name" class="form-label">เมนู</label>
         <input type="text" class="form-control" id="name" name="name" required>
       </div>
       
       <div class="mb-3">
-        <label for="type" class="form-label">Type</label>
+        <label for="type" class="form-label">ประเภท</label>
         <select class="form-select" id="type" name="type" required>
           <option value="drink">Drink</option>
           <option value="topping">Topping</option>
         </select>
       </div>
-    Select image to upload:
+    เลือกรูปภาพ:
     <input type="file" name="fileToUpload" id="fileToUpload"><br><br>
     <img id="imagePreview" src="" alt="Image Preview" style="max-width: 200px;"><br><br>
     <br>

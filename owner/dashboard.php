@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Menu</h5>
+                            <h5 class="card-title">เมนู</h5>
                             <p class="card-text">15 รายการ</p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Member</h5>
+                            <h5 class="card-title">สมาชิก</h5>
                             <p class="card-text">100 คน</p>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Total Sales</h5>
+                            <h5 class="card-title">ยอดขายทั้งหมด</h5>
                             <p class="card-text">1000 บาท</p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Popular Menu</h5>
+                            <h5 class="card-title">เมนูขายดี</h5>
                             <p class="card-text">ชานมไข่มุก</p>
                         </div>
                     </div>

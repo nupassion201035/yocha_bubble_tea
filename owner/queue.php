@@ -28,21 +28,21 @@ if ($result->num_rows > 0) {
     
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>Date Time</th><th>Employee Name</th><th>Detail</th><th>Action</th></tr></thead>";
+    echo "<thead><tr><th>วันที่</th><th>ชื่อพนักงาน</th><th>รายละเอียด</th><th></th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
     echo "<tr><td>".$row["datetime"]."</td><td>".$row["em_name"]."</td><td>";
-    echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>Detail</button></a>";
+    echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>รายละเอียด</button></a>";
     echo "</td><td>";
-    echo "<a onclick='return confirmAction();' href='calculate.php?id=".$row["order_id"]."' class='btn btn-warning btn-lg'>Calculate</a>";
+    echo "<a onclick='return confirmAction();' href='calculate.php?id=".$row["order_id"]."' class='btn btn-warning btn-lg'>คิดเงิน</a>";
     echo "&nbsp;&nbsp;&nbsp;";
-    echo "<a onclick='return confirmAction();' href='confirm_queue.php?id=".$row["order_id"]."' class='btn btn-success btn-lg'>Complete</a>";
+    echo "<a onclick='return confirmAction();' href='confirm_queue.php?id=".$row["order_id"]."' class='btn btn-success btn-lg'>สำเร็จรายการ</a>";
     echo "&nbsp;&nbsp;&nbsp;";
-    echo "<a onclick='return confirmDelete();' href='delete_queue.php?id=".$row["order_id"]."' class='btn btn-danger btn-lg'>Cancel</a>";
+    echo "<a onclick='return confirmDelete();' href='delete_queue.php?id=".$row["order_id"]."' class='btn btn-danger btn-lg'>ยกเลิกรายการ</a>";
     echo "</td></tr>";
 }
 echo "</tbody>";
-echo "</table>";
+echo "</table>";  
 echo "</div>";
 echo "</div>";
 } else {
@@ -57,11 +57,11 @@ echo "</div>";
 </html>
 <script>
     function confirmDelete() {
-      return confirm("Are you sure you want to delete this?");
+      return confirm("ยืนยันการยกเลิกรายการ?");
     }
   </script>
   <script>
     function confirmAction() {
-      return confirm("Are you sure you want to complete this?");
+      return confirm("ยืนยันการสำเร็จรายการ?");
     }
   </script>
