@@ -54,14 +54,14 @@ $row['order_id'];
 // Close database connection
 $count = 0;
 foreach ($_SESSION['cart'] as $index => $order) {
-    $count++;
+    $order['quantity'] = (int)$order['quantity'];
     echo "Size: " . $order['size'] . "<br>";
     echo "Drink: ". $order['drink']['pro_id'].'/'.$order['drink']['name'].'/'.$order['drink']['type'].'/'.$order['drink']['image']."<br>";
     echo "Topping: " . $order['topping']['pro_id'].'/'.$order['topping']['name'].'/'.$order['topping']['type'].'/'.$order['topping']['image']."<br>";
     echo "Price: " . $order['price'] . "<br><br>";
     $order['quantity'] = (int)$order['quantity'];
     
-
+    $count+= $order['quantity'];
      
     $sql3 = "INSERT into order_detail (`pro_id`, `size`, `topping_id`, `order_id`,`quantity`) VALUES (?, ?, ?, ?, ?)";
     $query = $conn->prepare($sql3);

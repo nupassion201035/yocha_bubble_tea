@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
     // Output data of each row
     echo "<div class='container'>";
     echo "<br>";
-    echo "<a href='add_member.php'><button type='button'  class='btn btn-primary btn-lg'>เพิ่มพนักงาน</button> </a>";
+    echo "<a href='add_member.php'><button type='button'  class='btn btn-primary btn-lg'>เพิ่มสมาชิก</button> </a>";
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
     echo "<thead><tr><th>ชื่อ</th><th>แต้มสะสม</th><th>เบอร์โทรศัพท์</th><th>ตำแหน่ง</th><th></th></tr></thead>";
