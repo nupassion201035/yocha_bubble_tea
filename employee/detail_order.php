@@ -13,12 +13,11 @@ include("../connection.php");
 <div class="container-xxl" >
         <div class="row">
         <a href="queue.php"><button class="btn btn-primary"> กลับหน้าคิว</button></a>
-        <h1>คิว</h1>
             
 <?php
 $order_id = $_GET["order_id"];
 $sql = "SELECT od.size, od.pro_id, p.name AS product_name, p.image AS product_image, 
-               t.name AS topping_name, t.image AS topping_image
+               t.name AS topping_name, t.image AS topping_image , od.quantity AS quantity
         FROM order_detail od 
         INNER JOIN `order` o ON od.order_id = o.order_id 
         INNER JOIN product p ON od.pro_id = p.pro_id 
@@ -31,16 +30,29 @@ if ($result->num_rows > 0) {
     // Output data of each row
     
     echo "<br>";
-    
+    echo "<h1>รายละเอียดคิว</h1>";
+    echo "<h1>A0$order_id</h1>";
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>เมนู</th><th>ประเภท</th><th>ท็อปปิ้ง</th><th>รูปภาพ</th></tr></thead>";
+    echo "<thead><tr><th>เมนู</th><th>ประเภท</th><th>ท็อปปิ้ง</th><th>จำนวน</th><th>ราคา</th><th>รูปภาพ</th></tr></thead>";
 echo "<tbody>";
+$total_sale = 0;
 while($row = $result->fetch_assoc()) {
-   
-    echo "<tr><td>".$row["product_name"]."</td><td>".$row["size"]."</td><td>".$row["topping_name"]."</td><td><img src='../assets/img/product/".$row["product_image"]."'width='50' height='50' ></td></tr>";
+  $total_price = 0;
+  
+   if ($row["size"] == "S") {
+       $price = 30 ;
+    } else if ($row["size"] == "M") {
+        $price = 40 ;
+    } else {
+        $price = 50 ;
+    }
+    $total_price = $price * $row["quantity"];
+    $total_sale += $total_price;
+    echo "<tr><td>".$row["product_name"]."</td><td>".$row["size"]."</td><td>".$row["topping_name"]."</td><td>".$row["quantity"]. " x " .$price." บาท</td><td>".$total_price."</td><td><img src='../assets/img/product/".$row["product_image"]."'width='50' height='50' ></td></tr>";
 }
 echo "</tbody>";
+echo "<tr><td></td><td></td><td></td><td>ราคารวม</td><td>$total_sale</td><td></td></tr>";
 echo "</table>";
 echo "</div>";
 echo "</div>";
