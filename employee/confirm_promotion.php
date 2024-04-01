@@ -36,7 +36,7 @@ $point_need = (int)($count_cart * 10);
 if($point<$point_need){
     ?>
             <script type="text/javascript">
-                alert("No have enough point.");
+                alert("แต้มสะสมไม่พอ");
                 window.location.href = "promotion.php";
             </script>
             <?php

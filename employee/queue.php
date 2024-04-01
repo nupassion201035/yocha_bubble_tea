@@ -20,29 +20,45 @@ FROM `order` o
 INNER JOIN `employees` em ON o.employee_id = em.employee_id 
 WHERE o.status = 'incomplete'
 ORDER BY o.datetime desc";
+
+$sql2 = "SELECT o.promotion_id, o.mem_id, o.pro_id, o.datetime, o.status, em.name AS em_name
+        FROM `promotion` o
+        INNER JOIN `employees` em ON o.employee_id = em.employee_id 
+        WHERE o.status = 'incomplete'
+        ORDER BY o.datetime DESC";
 $result = $conn->query($sql);
+$result2 = $conn->query($sql2);
 if ($result->num_rows > 0) {
     // Output data of each row
     
     echo "<br>";
-    
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>คิว</th><th>ชื่อพนักงาน</th><th>รายละเอียด</th><th></th></tr></thead>";
+    echo "<thead><tr><th>คิว</th><th>ชื่อพนักงาน</th><th>รายละเอียด</th><th>ประเภท</th><th>  </th></tr></thead>";
 echo "<tbody>";
+while($row2 = $result2->fetch_assoc()) {
+  echo "<tr><td>P0".$row2["promotion_id"]."</td><td>".$row2["em_name"]."</td><td>";
+  echo "<a href='detail_promotion.php?promotion_id=".$row2["promotion_id"]."' > <button class='btn btn-primary btn-lg'>รายละเอียด</button></a>";
+  echo "</td><td>Promotion";
+  
+  echo "</td><td>";
+  echo "<a onclick='return confirmAction();' href='promotion_cf.php?id=".$row2["promotion_id"]."' class='btn btn-success btn-lg'>สำเร็จรายการ</a>";
+  
+  echo "</td></tr>";
+}
 while($row = $result->fetch_assoc()) {
     echo "<tr><td>A0".$row["order_id"]."</td><td>".$row["em_name"]."</td><td>";
     echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>รายละเอียด</button></a>";
+    echo "</td><td>Normal";
     echo "</td><td>";
-    echo "<a onclick='return confirmAction();' href='calculate.php?id=".$row["order_id"]."' class='btn btn-warning btn-lg'>คิดเงิน</a>";
-    echo "&nbsp;&nbsp;&nbsp;";
+   
+    
     echo "<a onclick='return confirmAction();' href='confirm_queue.php?id=".$row["order_id"]."' class='btn btn-success btn-lg'>สำเร็จรายการ</a>";
-    echo "&nbsp;&nbsp;&nbsp;";
-    echo "<a onclick='return confirmDelete();' href='delete_queue.php?id=".$row["order_id"]."' class='btn btn-danger btn-lg'>ยกเลิกรายการ</a>";
+ 
     echo "</td></tr>";
 }
 echo "</tbody>";
-echo "</table>";
+echo "</table>";  
 echo "</div>";
 echo "</div>";
 } else {

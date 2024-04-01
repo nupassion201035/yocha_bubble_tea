@@ -1,5 +1,4 @@
 <?php
-
 include("../connection.php");
 
 session_start();
@@ -23,15 +22,33 @@ $prices = array(
     'L' => 50
 );
 
+// Initialize or increment quantity
+$quantity = 1;
+
+// Prepare order
 $order = array(
     'size' => $size,
     'topping' => $topping,
     'drink' => $drink,
-    'price' => $prices[$size] + $topping['price']
+    'price' => $prices[$size] + $topping['price'],
+    'quantity' => $quantity
 );
 
-$_SESSION['cart2'][] = $order;
+// Check if the same item (drink, size, topping) is already in the cart
+$found = false;
+foreach ($_SESSION['cart2'] as &$existing_order) {
+    if ($existing_order['drink']['pro_id'] == $order['drink']['pro_id'] && $existing_order['size'] == $order['size'] && $existing_order['topping']['pro_id'] == $order['topping']['pro_id']) {
+        // Item found, increase quantity
+        $existing_order['quantity'] += 1;
+        $found = true;
+        break;
+    }
+}
 
+if (!$found) {
+    // If not found, add new item
+    $_SESSION['cart2'][] = $order;
+}
 header("Location: ./promotion.php");
 
 ?>

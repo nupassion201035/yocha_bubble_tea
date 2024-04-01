@@ -32,7 +32,7 @@ echo $current_time;
 
 
 
-    $sql = "INSERT INTO `order` (`datetime`, `status`, `mem_id`, `employee_id`) VALUES (?, 'incomplete', ?, ?)";
+    $sql = "INSERT INTO `order` (`datetime`, `status`, `mem_id`, `employee_id`,`type`) VALUES (?, 'incomplete', ?, ?,'normal')";
     $query = $conn->prepare($sql);
     $query->bind_param("sss", $current_time, $mem_id, $_SESSION['employee_id']);
     $query->execute();
@@ -62,7 +62,7 @@ foreach ($_SESSION['cart'] as $index => $order) {
     $order['quantity'] = (int)$order['quantity'];
     
     $count+= $order['quantity'];
-     
+    
     $sql3 = "INSERT into order_detail (`pro_id`, `size`, `topping_id`, `order_id`,`quantity`) VALUES (?, ?, ?, ?, ?)";
     $query = $conn->prepare($sql3);
     $query->bind_param("issii", $order['drink']['pro_id'], $order['size'], $order['topping']['pro_id'],$row['order_id'],$order['quantity']);

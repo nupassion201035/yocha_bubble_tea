@@ -173,7 +173,7 @@ $result2 = $conn->query($sql2);
                     ?>
                 </div>
             </div>
-            <form  action="confirm_order.php" class="container-order col-md-4">
+            <form  action="calculate.php" class="container-order col-md-4">
                 <label class="form-label" for="men_id"> <h2>เบอร์โทรสมาชิก</h2></label>
                 <input type="text" class="form-control" id="searchInput" onkeyup="showResult(this.value)" name="mem_id" value="">
                 <div id="searchResult"></div>
@@ -187,7 +187,7 @@ $result2 = $conn->query($sql2);
                         จำนวน
                     </div>
                     <div class="col">
-                        ราคา/หน่วย
+                        ราคา
                     </div>
                     <div class="col"></div>
                 </div>
@@ -219,7 +219,7 @@ $result2 = $conn->query($sql2);
                             echo " <span id='$priceDisplayId' data-base-price='".$order['price']."'>(".$order['price']."บาท)</span>";
                             echo '  </div>';
                             echo '  <div class="col">';
-                            echo        "<a class='btn btn-danger pt-1' href='remove_from_cart.php?cart_index=$index'>X</a>";   
+                            echo        "<a class='btn btn-danger pt-1' href='remove_from_cart.php?cart_index=$index'>X</a>";
                             echo '  </div>';
                             echo '</div>';
                         }
@@ -227,7 +227,7 @@ $result2 = $conn->query($sql2);
                         echo '<div class="mb-2">ไม่มีสินค้า</div>';
                     }
                 ?>
-                <button type="submit" class="btn btn-dark">ชำระเงิน</button>
+                <button type="submit" class="btn btn-dark">สั่งซื้อ</button>
             </form>
 
         </div>

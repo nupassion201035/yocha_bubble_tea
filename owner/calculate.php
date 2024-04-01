@@ -1,7 +1,18 @@
 <?php include("navbar_owner.php"); 
 include("../connection.php");
+$em_id = $_SESSION['employee_id'];
+$mem_id = $_GET['mem_id'];
+$sql11="SELECT * FROM `employees` where employee_id = $em_id";
+$res = $conn->query($sql11);
+$em_data = $res->fetch_assoc();
+$em_name = $em_data['name'];
 $total = 0;
-$qid = $_GET["id"];
+
+
+$sql22 = "SELECT MAX(order_id) as max_id FROM `order`";
+$res22 = $conn->query($sql22);
+$order_row = $res22->fetch_assoc();
+$order_id = $order_row['max_id']+1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,23 +27,8 @@ $qid = $_GET["id"];
         <h1>ชำระเงิน</h1>
             
 <?php
-$sql = "SELECT 
-o.order_id,
-de.size as item,
-pro.name as pro_name,
-o.datetime as o_datetime,
-em.name as em_name,
-topp.name as top_name,
-de.quantity as quantity
 
-FROM `order` o
-INNER JOIN `employees` em ON o.employee_id = em.employee_id
-INNER JOIN `order_detail` de ON o.order_id = de.order_id
-INNER JOIN `product` pro ON de.pro_id = pro.pro_id
-INNER JOIN `product` topp ON de.topping_id = topp.pro_id
-WHERE o.order_id = '$qid'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
+if (!empty($_SESSION['cart'])) {
     // Output data of each row
     
     echo "<br>";
@@ -41,23 +37,47 @@ if ($result->num_rows > 0) {
     echo "<table class='table '>";
     echo "<thead><tr><th>เมนู</th><th>Size</th><th>จำนวน</th><th>ท็อปปิ้ง</th><th>ราคา</th></tr></thead>";
 echo "<tbody>";
-while($row = $result->fetch_assoc()) {
-    echo "<tr><td>".$row["pro_name"]."</td><td>".$row["item"]."</td><td>".$row["quantity"]."</td><td>";
-    echo $row["top_name"];
+// while($row = $result->fetch_assoc()) {
+//     echo "<tr><td>".$row["pro_name"]."</td><td>".$row["item"]."</td><td>".$row["quantity"]."</td><td>";
+//     echo $row["top_name"];
     
-    echo "</td><td>";
-    if($row["item"]=="S"){
-        echo 30*(int)$row["quantity"] ;
-        $total+=(30*(int)$row["quantity"]);
-    }else if($row["item"]=="M"){
-        echo 40*(int)$row["quantity"] ;
-        $total+=(40*(int)$row["quantity"]);
-    }else{
-        echo 50*(int)$row["quantity"] ;
-        $total+=(50*(int)$row["quantity"]);
-    }
-    echo "</td></tr>";
+//     echo "</td><td>";
+//     if($row["item"]=="S"){
+//         echo 30*(int)$row["quantity"] ;
+//         $total+=(30*(int)$row["quantity"]);
+//     }else if($row["item"]=="M"){
+//         echo 40*(int)$row["quantity"] ;
+//         $total+=(40*(int)$row["quantity"]);
+//     }else{
+//         echo 50*(int)$row["quantity"] ;
+//         $total+=(50*(int)$row["quantity"]);
+//     }
+//     echo "</td></tr>";
+// }
+
+
+
+
+foreach ($_SESSION['cart'] as $item) {
+    $sql3 = "SELECT * FROM product WHERE pro_id = ". $item['topping']['pro_id'];
+    $result = $conn->query($sql3);
+
+    $sql4 = "SELECT * FROM product WHERE pro_id = " . $item['drink']['pro_id'];
+    $result2 = $conn->query($sql4);
+    $drink = $result2->fetch_assoc();
+    $topping = $result->fetch_assoc();
+    echo "<tr>";
+    echo "<td>" . $drink['name'] . "</td>";
+    echo "<td>" . $item['size'] . "</td>";
+    echo "<td>" . $item['quantity'] . "</td>";
+    echo "<td>" . $topping['name'] . "</td>";
+    // Calculate price for the current item
+    $itemPrice = $item['price'] * $item['quantity'];
+    $total += $itemPrice; // Update total cost
+    echo "<td>" . $itemPrice . "</td>";
+    echo "</tr>";
 }
+echo "<tr><td colspan='4'>Total</td><td>$total</td></tr>";
 echo "</tbody>";
 echo "</table>";
 echo "</div>";
@@ -81,37 +101,50 @@ function calculateWithdrawal($totalPrice, $customerMoney) {
 }
 $_SESSION['receipt_data'] = array();
 // Example usage of the function
-if(isset($_POST['totalPrice'], $_POST['customerMoney'])) {
-    $totalPrice = $_POST['totalPrice'];
+if(isset($_POST['customerMoney'])) {
+    $totalPrice = $total;
     $customerMoney = $_POST['customerMoney'];
 
     $withdrawal = calculateWithdrawal($totalPrice, $customerMoney);
-    $result = $conn->query($sql);
-    while($row = $result->fetch_assoc()) {
-        $em_name = $row['em_name'];
-        $o_datetime = $row['o_datetime'];
-        if($row["item"]=="S"){
-            $price = 30 ;
-            
-        }else if($row["item"]=="M"){
-            $price = 40 ;
-            
-        }else{
-            $price = 50 ;
+    foreach ($_SESSION['cart'] as $item) {
+        $sql3 = "SELECT * FROM product WHERE pro_id = ". $item['topping']['pro_id'];
+    $result = $conn->query($sql3);
 
+    $sql4 = "SELECT * FROM product WHERE pro_id = " . $item['drink']['pro_id'];
+    $result2 = $conn->query($sql4);
+    $drink = $result2->fetch_assoc();
+    $topping = $result->fetch_assoc();
+        if($item["size"]=="S"){
+            $price = 30 ;
+        } elseif ($item["size"]=="M"){
+            $price = 40 ;
+        } else {
+            $price = 50 ;
         }
-    echo $row['pro_name']." : ".$price*$row['quantity'];
-    echo "<br>";
-    $_SESSION['receipt_data'][] = [
-        'pro_name' => $row['pro_name']." size ".$row['item']." x ".$row['quantity']. " x (".$price." บาท)" ,
-        'price' => $price*$row['quantity']
-    ];
+        
+        echo $drink['name'] . " : " . $price * $item['quantity'];
+        echo "<br>";
+        
+        // Store receipt data in session
+        $_SESSION['receipt_data'][] = [
+            'pro_name' => $drink['name'] . " size " . $item['size'] . " x " . $item['quantity'] . " x (" . $price . " บาท)",
+            'price' => $price * $item['quantity']
+        ];
+        
+        // Calculate total price
+        
     }
+  
+    $o_datetime = date("Y-m-d H:i:s");
+    
+
+    
     $_SESSION['receipt_data']['totalPrice'] = $totalPrice;
     $_SESSION['receipt_data']['customerMoney'] = $customerMoney;
     $_SESSION['receipt_data']['withdrawal'] = $withdrawal;
     $_SESSION['receipt_data']['em_name'] = $em_name;
     $_SESSION['receipt_data']['o_datetime'] = $o_datetime;
+    $_SESSION['receipt_data']['qid'] = $order_id;
     echo "ราคาสุทธิ: ".$totalPrice ;
     echo "<br>";
     echo "เงินรับจากลูกค้า: ".$customerMoney ;
@@ -124,16 +157,11 @@ if(isset($_POST['totalPrice'], $_POST['customerMoney'])) {
    
 </form>
 <br>
-<a href="print.php?id=<?php echo $qid ;?>" class="btn btn-primary">สั่งพิ่มใบเสร็จ</a><br><br>
+<a href="confirm_order.php?mem_id=<?php echo $mem_id ?>" class="btn btn-primary">สั่งพิมพ์ใบเสร็จ</a><br><br>
     
 </div>
-        </div>
-        
     </div>
-
-    
-        
-    
+</div>
 </body>
 </html>
 <script>

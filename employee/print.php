@@ -3,7 +3,7 @@
 error_reporting(0);
 ob_start();
 session_start();
-$qid = $_GET['id'];
+$mem_id = $_GET['id'];
 require('../fpdf/fpdf.php'); // Ensure the path to fpdf.php is correct
 
 if (!isset($_SESSION['receipt_data'])) {
@@ -18,14 +18,14 @@ $receipt_data = $_SESSION['receipt_data'];
 $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->AddFont('garuda', '', 'Garuda.php');
-$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetFont('Arial', 'B', 24);
 
 // Add a header
 $cp874_text_q = iconv('UTF-8', 'windows-874', 'คิวของคุณ');
 $pdf->Cell(190, 10, 'Yocha Bubble Tea', 0, 1, 'C');
 $pdf->SetFont('garuda', '', 20);
 $pdf->Cell(190, 10, $cp874_text_q, 0, 1, 'C');
-$pdf->Cell(190, 10, 'A0' .$qid, 0, 1, 'C');
+$pdf->Cell(190, 10, 'A0' .$_SESSION['receipt_data']['qid'], 0, 1, 'C');
 $pdf->SetFont('Arial', '', 12);
 
 // Add a table header

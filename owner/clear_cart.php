@@ -2,5 +2,5 @@
 session_start();
 
 unset($_SESSION['cart']);
-header("Location: ./home.php");
+header("Location: ./print.php");
 ?>
