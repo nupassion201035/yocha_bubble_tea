@@ -21,13 +21,19 @@ $pdf->AddFont('garuda', '', 'Garuda.php');
 $pdf->SetFont('Arial', 'B', 16);
 
 // Add a header
+$cp874_text_q = iconv('UTF-8', 'windows-874', 'คิวของคุณ');
 $pdf->Cell(190, 10, 'Yocha Bubble Tea', 0, 1, 'C');
-
+$pdf->SetFont('garuda', '', 20);
+$pdf->Cell(190, 10, $cp874_text_q, 0, 1, 'C');
+$pdf->Cell(190, 10, 'A0' .$qid, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 12);
 
 // Add a table header
-$pdf->Cell(150, 10, 'Product Name', 1, 0, 'L');
-$pdf->Cell(40, 10, 'Price', 1, 1, 'C');
+$pdf->SetFont('garuda', '', 12);
+$cp874_text_Productname = iconv('UTF-8', 'windows-874', 'เมนู');
+$cp874_text_Producprice = iconv('UTF-8', 'windows-874', 'ราคา');
+$pdf->Cell(150, 10, $cp874_text_Productname, 1, 0, 'L');
+$pdf->Cell(40, 10, $cp874_text_Producprice, 1, 1, 'C');
 
 // Output the receipt data
 $pdf->SetFont('garuda', '', 12);

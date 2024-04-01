@@ -25,13 +25,12 @@ if ($result->num_rows > 0) {
     // Output data of each row
     
     echo "<br>";
-    
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
-    echo "<thead><tr><th>วันที่</th><th>ชื่อพนักงาน</th><th>รายละเอียด</th><th></th></tr></thead>";
+    echo "<thead><tr><th>คิว</th><th>ชื่อพนักงาน</th><th>รายละเอียด</th><th></th></tr></thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()) {
-    echo "<tr><td>".$row["datetime"]."</td><td>".$row["em_name"]."</td><td>";
+    echo "<tr><td>A0".$row["order_id"]."</td><td>".$row["em_name"]."</td><td>";
     echo "<a href='detail_order.php?order_id=".$row["order_id"]."' > <button class='btn btn-primary btn-lg'>รายละเอียด</button></a>";
     echo "</td><td>";
     echo "<a onclick='return confirmAction();' href='calculate.php?id=".$row["order_id"]."' class='btn btn-warning btn-lg'>คิดเงิน</a>";

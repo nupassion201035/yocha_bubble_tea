@@ -103,7 +103,7 @@ if(isset($_POST['totalPrice'], $_POST['customerMoney'])) {
     echo $row['pro_name']." : ".$price*$row['quantity'];
     echo "<br>";
     $_SESSION['receipt_data'][] = [
-        'pro_name' => $row['pro_name']." size ".$row['item']." x ".$row['quantity'],
+        'pro_name' => $row['pro_name']." size ".$row['item']." x ".$row['quantity']. " x (".$price." บาท)" ,
         'price' => $price*$row['quantity']
     ];
     }

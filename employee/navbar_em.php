@@ -31,9 +31,6 @@ if ($_SESSION['status'] != "employee"){
                     <a class="nav-link" href="queue.php">คิว</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="manage_product.php">จัดการสินค้า</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="manage_member.php">จัดการสมาชิก</a>
                 </li>
                 <li class="nav-item">
