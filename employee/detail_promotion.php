@@ -1,7 +1,6 @@
 
 
 <?php include("navbar_em.php"); 
-
 include("../connection.php");
 
 ?>
@@ -19,6 +18,7 @@ include("../connection.php");
             
 <?php
 $promotion_id = $_GET["promotion_id"];
+$qid = $_GET["qid"];
 $sql = "SELECT p.name AS product_name, p.image AS product_image,
                t.name AS topping_name, t.image AS topping_image,
                pr.datetime, pr.status, pr.employee_id
@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
     
     echo "<br>";
     echo "<h1>รายละเอียดคิว</h1>";
-    echo "<h1>P0$promotion_id</h1>";
+    echo "<h1>P0$qid</h1>";
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
     echo "<thead><tr><th>เมนู</th><th>ท็อปปิ้ง</th><th>จำนวน</th><th>รูปภาพ</th></tr></thead>";

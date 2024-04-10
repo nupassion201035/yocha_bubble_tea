@@ -8,8 +8,8 @@ $em_data = $res->fetch_assoc();
 $em_name = $em_data['name'];
 $total = 0;
 
-
-$sql22 = "SELECT MAX(order_id) as max_id FROM `order`";
+$today = date('Y-m-d', time());
+$sql22 = "SELECT COUNT(order_id) as max_id FROM `order` where `datetime` like '$today%'";
 $res22 = $conn->query($sql22);
 $order_row = $res22->fetch_assoc();
 $order_id = $order_row['max_id']+1;

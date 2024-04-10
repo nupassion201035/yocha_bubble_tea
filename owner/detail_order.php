@@ -19,6 +19,7 @@ include("../connection.php");
             
 <?php
 $order_id = $_GET["order_id"];
+$qid = $_GET["qid"];
 $sql = "SELECT od.size, od.pro_id, p.name AS product_name, p.image AS product_image, 
                t.name AS topping_name, t.image AS topping_image , od.quantity AS quantity
         FROM order_detail od 
@@ -34,7 +35,7 @@ if ($result->num_rows > 0) {
     
     echo "<br>";
     echo "<h1>รายละเอียดคิว</h1>";
-    echo "<h1>A0$order_id</h1>";
+    echo "<h1>A0$qid</h1>";
     echo "<div class='table-responsive'>";
     echo "<table class='table '>";
     echo "<thead><tr><th>เมนู</th><th>ประเภท</th><th>ท็อปปิ้ง</th><th>จำนวน</th><th>ราคา</th><th>รูปภาพ</th></tr></thead>";
